@@ -1,0 +1,59 @@
+{
+  "metadata": {
+    "source": "OpenStreetMap Overpass API",
+    "api_url": "https://overpass-api.de/api/interpreter",
+    "bogota_bbox": "4.4,-74.3,4.85,-73.9",
+    "validated_date": "2026-02-18",
+    "rate_limit": "max 2 requests per second",
+    "user_agent": "BogotaInsightsWidget/1.0"
+  },
+  "queries": {
+    "commerce_amenities": {
+      "description": "Restaurants, cafes, banks, pharmacies",
+      "status": "GO",
+      "expected_count": 8400,
+      "query": "[out:json][timeout:30];\n(\n  node[\"amenity\"~\"^(restaurant|cafe|bank|pharmacy)$\"]({{bbox}});\n  way[\"amenity\"~\"^(restaurant|cafe|bank|pharmacy)$\"]({{bbox}});\n);\nout center tags;",
+      "tags_to_extract": ["amenity", "name", "cuisine", "opening_hours", "phone", "website", "addr:street", "addr:housenumber", "brand"]
+    },
+    "shops": {
+      "description": "Supermarkets, convenience stores, department stores, malls",
+      "status": "GO",
+      "expected_count": 1800,
+      "query": "[out:json][timeout:30];\n(\n  node[\"shop\"~\"^(supermarket|convenience|department_store|mall)$\"]({{bbox}});\n  way[\"shop\"~\"^(supermarket|convenience|department_store|mall)$\"]({{bbox}});\n);\nout center tags;",
+      "tags_to_extract": ["shop", "name", "brand", "opening_hours", "phone", "website", "addr:street", "addr:housenumber"]
+    },
+    "bus_stops": {
+      "description": "All bus stops (SITP and untagged) - broad query to capture all tagging variants",
+      "status": "CONDITIONAL_GO",
+      "expected_count": 2600,
+      "query": "[out:json][timeout:30];\n(\n  node[\"highway\"=\"bus_stop\"]({{bbox}});\n  node[\"public_transport\"=\"platform\"][\"bus\"=\"yes\"]({{bbox}});\n);\nout body;",
+      "tags_to_extract": ["name", "ref", "network", "operator", "route_ref", "shelter"],
+      "notes": "Do NOT filter by network=SITP - misses ~60% of actual stops. Dedup nodes within 30m."
+    },
+    "leisure": {
+      "description": "Fitness centres, sports centres, cinemas",
+      "status": "NO_GO",
+      "expected_count": 472,
+      "query": "[out:json][timeout:30];\n(\n  node[\"leisure\"~\"^(fitness_centre|sports_centre)$\"]({{bbox}});\n  way[\"leisure\"~\"^(fitness_centre|sports_centre)$\"]({{bbox}});\n  node[\"amenity\"=\"cinema\"]({{bbox}});\n  way[\"amenity\"=\"cinema\"]({{bbox}});\n);\nout center tags;",
+      "tags_to_extract": ["leisure", "amenity", "name", "sport", "opening_hours"],
+      "notes": "Coverage too sparse and patchy. Three of five test neighborhoods returned zero. Not recommended."
+    }
+  },
+  "deduplication": {
+    "within_osm": {
+      "commerce": "distance < 50m AND (name_similarity > 0.8 OR same type at exact coords)",
+      "bus_stops": "distance < 30m (highway=bus_stop and public_transport=platform often duplicate)"
+    },
+    "osm_vs_ideca": {
+      "commerce": "No overlap - IDECA has no commerce data",
+      "bus_stops": "Minimal overlap - IDECA has TransMilenio trunk stations only. Dedup by distance < 100m.",
+      "transmilenio": "OSM has ~1 TM station vs IDECA 150. Keep IDECA as authoritative for TM."
+    }
+  },
+  "bias_warnings": {
+    "restaurants_cafes": "HIGH bias - 38:1 ratio between wealthiest and poorest neighborhoods",
+    "banks_pharmacies": "MODERATE bias - 10:1 ratio, chain coverage helps",
+    "supermarkets": "LOW bias - Kennedy has more supermarkets than Chapinero",
+    "bus_stops": "MODERATE bias - Ciudad Bolivar has weak coverage (42 vs 358 in Chapinero)"
+  }
+}

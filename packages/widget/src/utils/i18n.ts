@@ -1,0 +1,87 @@
+import type { CategoryType } from '@bogota-insights/shared';
+
+type Lang = 'es' | 'en';
+
+const translations: Record<Lang, Record<string, string>> = {
+  es: {
+    'header.bogota': 'Bogota',
+    'header.localidad': 'Localidad',
+    'header.estrato': 'Estrato',
+    'score.low': 'Bajo',
+    'score.moderate': 'Moderado',
+    'score.good': 'Bueno',
+    'score.excellent': 'Excelente',
+    'score.limited': 'Datos limitados',
+    'score.noData': '--',
+    'category.transport': 'Transporte',
+    'category.commerce': 'Comercio',
+    'category.education': 'Educacion',
+    'category.health': 'Salud',
+    'category.recreation': 'Recreacion',
+    'category.nearby': 'cercanos',
+    'category.closest': 'Mas cercano',
+    'category.noData': 'No se encontraron datos dentro de',
+    'category.tryExpand': 'Intente aumentar el radio de busqueda.',
+    'radius.label': 'Radio',
+    'footer.sources': 'Fuentes',
+    'footer.radius': 'Radio',
+    'loading.text': 'Cargando informacion del barrio...',
+    'error.network': 'No se pudo cargar la informacion. Verifique su conexion e intente de nuevo.',
+    'error.outside': 'Las coordenadas proporcionadas estan fuera del area metropolitana de Bogota.',
+    'error.rateLimit': 'Demasiadas solicitudes. Por favor espere un momento.',
+    'error.retry': 'Reintentar',
+    'estrato.tooltip': 'El estrato socioeconomico (1-6) clasifica la zona segun sus caracteristicas urbanas e infraestructura. Se usa para tarifas de servicios publicos. No mide ingresos individuales.',
+    'help.title': 'Acerca de los datos',
+    'source.ideca': 'Registros oficiales de IDECA',
+    'source.osm': 'Datos comunitarios de OpenStreetMap',
+    'source.transmilenio': 'Autoridad de transito',
+  },
+  en: {
+    'header.bogota': 'Bogota',
+    'header.localidad': 'Localidad',
+    'header.estrato': 'Estrato',
+    'score.low': 'Low',
+    'score.moderate': 'Moderate',
+    'score.good': 'Good',
+    'score.excellent': 'Excellent',
+    'score.limited': 'Limited data',
+    'score.noData': '--',
+    'category.transport': 'Transport',
+    'category.commerce': 'Commerce',
+    'category.education': 'Education',
+    'category.health': 'Health',
+    'category.recreation': 'Recreation',
+    'category.nearby': 'nearby',
+    'category.closest': 'Closest',
+    'category.noData': 'No data found within',
+    'category.tryExpand': 'Try increasing the search radius.',
+    'radius.label': 'Radius',
+    'footer.sources': 'Sources',
+    'footer.radius': 'Radius',
+    'loading.text': 'Loading neighborhood information...',
+    'error.network': 'Unable to load insights. Check your connection and try again.',
+    'error.outside': 'The provided coordinates are outside the Bogota metropolitan area.',
+    'error.rateLimit': 'Too many requests. Please wait a moment.',
+    'error.retry': 'Retry',
+    'estrato.tooltip': 'The socioeconomic stratum (1-6) classifies the area by its urban characteristics and infrastructure. It is used for public utility rates. It does not measure individual income.',
+    'help.title': 'About the data',
+    'source.ideca': 'IDECA official records',
+    'source.osm': 'OpenStreetMap community data',
+    'source.transmilenio': 'Transit authority',
+  },
+};
+
+export function t(key: string, lang: Lang = 'es'): string {
+  return translations[lang]?.[key] ?? translations.es[key] ?? key;
+}
+
+export function getCategoryLabel(category: CategoryType, lang: Lang = 'es'): string {
+  return t(`category.${category}`, lang);
+}
+
+export function getScoreLabel(score: number, lang: Lang = 'es'): string {
+  if (score < 40) return t('score.low', lang);
+  if (score < 60) return t('score.moderate', lang);
+  if (score < 80) return t('score.good', lang);
+  return t('score.excellent', lang);
+}

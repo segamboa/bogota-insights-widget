@@ -1,0 +1,87 @@
+{
+  "Kennedy": {
+    "estrato": "2-3",
+    "total": 410,
+    "breakdown": {
+      "bank": 48,
+      "restaurant": 212,
+      "pharmacy": 99,
+      "cafe": 51
+    },
+    "sample_names": [
+      "bank: Davivienda",
+      "restaurant: Calivea",
+      "bank: Banco de Bogotá",
+      "bank: AV Villas",
+      "bank: Davivienda"
+    ]
+  },
+  "Suba": {
+    "estrato": "3-4",
+    "total": 194,
+    "breakdown": {
+      "pharmacy": 50,
+      "bank": 19,
+      "restaurant": 101,
+      "cafe": 24
+    },
+    "sample_names": [
+      "pharmacy: Drogueria Cafam",
+      "pharmacy: Ultra",
+      "pharmacy: Salitre de Suba",
+      "bank: Banco de Bogotá",
+      "bank: Bancolombia"
+    ]
+  },
+  "Chapinero": {
+    "estrato": "4-5",
+    "total": 1292,
+    "breakdown": {
+      "restaurant": 733,
+      "cafe": 293,
+      "bank": 114,
+      "pharmacy": 152
+    },
+    "sample_names": [
+      "restaurant: Vegetariano Vega",
+      "restaurant: Vegetariano Ajonjoli",
+      "restaurant: Desayunadero De La 42",
+      "restaurant: Vegetartiano Novilunio",
+      "cafe: Juan Valdez Café"
+    ]
+  },
+  "Usaquen": {
+    "estrato": "5-6",
+    "total": 646,
+    "breakdown": {
+      "pharmacy": 146,
+      "restaurant": 340,
+      "bank": 80,
+      "cafe": 80
+    },
+    "sample_names": [
+      "restaurant: Fritanga Gourmet",
+      "bank: BBVA",
+      "cafe: Pan Pa' Ya!",
+      "cafe: Cafe internet",
+      "cafe: Pan Pa' Ya!"
+    ]
+  },
+  "Ciudad Bolivar": {
+    "estrato": "1-2",
+    "total": 34,
+    "breakdown": {
+      "cafe": 3,
+      "bank": 2,
+      "pharmacy": 9,
+      "restaurant": 20
+    },
+    "sample_names": [
+      "cafe: WilPan",
+      "bank: Banco de Bogotá",
+      "pharmacy: Drogas Corpisalud",
+      "pharmacy: Coorpidrogas",
+      "restaurant: Surtidora de Aves HR"
+    ]
+  }
+}

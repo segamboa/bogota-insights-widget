@@ -1,0 +1,32 @@
+{
+  "name": "bogota-insights-widget",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Embeddable real estate insights widget for Bogota, Colombia",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/bogota-insights-widget"
+  },
+  "workspaces": [
+    "packages/*",
+    "jobs"
+  ],
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "lint": "turbo run lint",
+    "test": "turbo run test",
+    "clean": "turbo run clean && rm -rf node_modules",
+    "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md}\""
+  },
+  "devDependencies": {
+    "prettier": "^3.2.5",
+    "turbo": "^1.12.4",
+    "typescript": "^5.3.3"
+  },
+  "engines": {
+    "node": ">=20.0.0",
+    "pnpm": ">=8.0.0"
+  },
+  "packageManager": "pnpm@8.15.0"
+}
