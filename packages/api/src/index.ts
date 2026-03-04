@@ -15,6 +15,7 @@ import { authenticateApiKey } from './middleware/auth.js';
 import { insightsRoutes } from './routes/insights.js';
 import { scoresRoutes } from './routes/scores.js';
 import { poisRoutes } from './routes/pois.js';
+import { heatmapRoutes } from './routes/heatmap.js';
 
 // Load environment variables
 config();
@@ -54,7 +55,7 @@ fastify.get('/health', async () => {
   };
 });
 
-// API key auth hook for /v1/* routes
+// API key auth hook for /v1/* routes (but not /admin/*)
 fastify.addHook('preHandler', async (request, reply) => {
   if (request.url.startsWith('/v1/')) {
     await authenticateApiKey(request, reply);
@@ -65,6 +66,7 @@ fastify.addHook('preHandler', async (request, reply) => {
 await fastify.register(insightsRoutes);
 await fastify.register(scoresRoutes);
 await fastify.register(poisRoutes);
+await fastify.register(heatmapRoutes);
 
 // Start server
 const start = async () => {
