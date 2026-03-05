@@ -4,15 +4,24 @@ import type { PoiRow } from '../db/queries.js';
 
 /**
  * Average POI counts per category within 1000m radius for Bogota.
- * Calibrated based on load test data across 11 diverse neighborhoods.
- * Optimized for real estate use: balanced differentiation without extreme scores.
+ * CALIBRATED: Based on heatmap analysis of 1,628 cells across Bogota metro area.
+ * Data from 2026-03-04: ~27,923 total POIs distributed across Bogota.
+ *
+ * Real averages from heatmap data:
+ * - transport: 4.4 (stddev: 10.8, max: 86)
+ * - commerce: 19.5 (stddev: 60.8, max: 737)
+ * - education: 6.0 (stddev: 13.3, max: 104)
+ * - health: 3.4 (stddev: 15.9, max: 208)
+ * - recreation: 11.7 (stddev: 23.9, max: 136)
+ *
+ * Using median-like values for better distribution (lower than mean due to high variance)
  */
 const BOGOTA_AVERAGES: Record<CategoryType, number> = {
-  transport: 25,      // Calibrated avg after analysis (SITP + TransMilenio)
-  commerce: 90,       // Calibrated avg after pharmacy dedup (OSM)
-  education: 15,      // Calibrated avg (IDECA + OSM with cross-source dedup)
-  health: 20,         // Calibrated avg after analysis (IDECA + OSM)
-  recreation: 30,     // Calibrated avg after analysis (IDECA parks)
+  transport: 3,       // ~70th percentile (most areas have 0-5)
+  commerce: 12,       // ~60th percentile (high variance, many areas have few)
+  education: 4,       // ~65th percentile
+  health: 2,          // ~70th percentile (very sparse, clinics scattered)
+  recreation: 8,      // ~65th percentile
 };
 
 /**
@@ -43,9 +52,9 @@ export function computeCategoryScore(
   pois: PoiRow[],
   radiusM: number,
 ): CategoryScoreResult {
-  // Floor: limited access (not zero) - marketing-friendly minimum
+  // Floor: truly limited access - areas with no amenities get minimum score
   if (pois.length === 0) {
-    return { score: 40, countScore: 0, proximityScore: 0, diversityScore: 0, qualityScore: 0 };
+    return { score: 25, countScore: 0, proximityScore: 0, diversityScore: 0, qualityScore: 0 };
   }
 
   // Scale the average based on the radius (baseline is 1000m)
@@ -75,17 +84,19 @@ export function computeCategoryScore(
   const avgConfidence = pois.reduce((sum, p) => sum + p.confidence, 0) / pois.length;
   const qualityScore = avgConfidence; // Already 0-100
 
-  // Weighted final score
-  let score = Math.round(
+  // Weighted final score (raw, before rescaling)
+  let rawScore = Math.round(
     countScore * SCORING_WEIGHTS.count +
     proximityScore * SCORING_WEIGHTS.proximity +
     diversityScore * SCORING_WEIGHTS.diversity +
     qualityScore * SCORING_WEIGHTS.quality,
   );
 
-  // Rescale [35-100] -> [40-100] for marketing-friendly scores (monotonic, preserves ordering)
-  score = Math.round(40 + (Math.max(35, score) - 35) * 60 / 65);
-  score = Math.max(40, Math.min(100, score));
+  // Rescale [0-100] -> [25-100] for wider distribution
+  // Floor of 25 (truly limited areas) to 100 (excellent)
+  // This gives us 4x more dynamic range in the lower half
+  let score = Math.round(25 + (rawScore / 100) * 75);
+  score = Math.max(25, Math.min(100, score));
 
   return {
     score,
