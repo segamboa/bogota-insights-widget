@@ -16,6 +16,8 @@ import { insightsRoutes } from './routes/insights.js';
 import { scoresRoutes } from './routes/scores.js';
 import { poisRoutes } from './routes/pois.js';
 import { heatmapRoutes } from './routes/heatmap.js';
+import { facilitiesRoutes } from './routes/facilities.js';
+import { profileRoutes } from './routes/profiles.js';
 
 // Load environment variables
 config();
@@ -67,6 +69,8 @@ await fastify.register(insightsRoutes);
 await fastify.register(scoresRoutes);
 await fastify.register(poisRoutes);
 await fastify.register(heatmapRoutes);
+await fastify.register(facilitiesRoutes);
+await fastify.register(profileRoutes);
 
 // Start server
 const start = async () => {
