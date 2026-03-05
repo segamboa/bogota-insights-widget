@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bogotá Insights - Widget Demo</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      padding: 20px;
+    }
+    .container {
+      max-width: 500px;
+      margin: 0 auto;
+    }
+    h1 {
+      color: white;
+      text-align: center;
+      margin-bottom: 20px;
+      font-size: 1.5rem;
+    }
+    .search-box {
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+    .input-group {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+    input {
+      flex: 1;
+      padding: 12px;
+      border: 2px solid #e0e0e0;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+    button {
+      padding: 12px 24px;
+      background: #667eea;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+    button:hover { background: #5a67d8; }
+    button:disabled { background: #ccc; cursor: not-allowed; }
+    .loading {
+      text-align: center;
+      color: #666;
+      padding: 20px;
+    }
+    .widget {
+      background: white;
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+      display: none;
+    }
+    .widget.active { display: block; }
+    .score-header {
+      text-align: center;
+      margin-bottom: 20px;
+      padding-bottom: 20px;
+      border-bottom: 2px solid #f0f0f0;
+    }
+    .score-number {
+      font-size: 48px;
+      font-weight: bold;
+      color: #667eea;
+    }
+    .score-label {
+      font-size: 20px;
+      color: #333;
+      margin-top: 5px;
+    }
+    .stars {
+      font-size: 24px;
+      margin-top: 10px;
+    }
+    .profile-section {
+      margin: 20px 0;
+    }
+    .profile-title {
+      font-size: 14px;
+      color: #666;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+    }
+    .profile-headline {
+      font-size: 24px;
+      font-weight: bold;
+      color: #333;
+    }
+    .profile-tagline {
+      font-size: 16px;
+      color: #667eea;
+      margin-top: 5px;
+    }
+    .highlights {
+      margin: 20px 0;
+    }
+    .highlight {
+      display: flex;
+      align-items: center;
+      padding: 10px 0;
+      border-bottom: 1px solid #f0f0f0;
+    }
+    .highlight-icon {
+      font-size: 20px;
+      margin-right: 12px;
+      width: 30px;
+    }
+    .highlight-text {
+      flex: 1;
+      color: #333;
+    }
+    .ideal-for {
+      margin: 20px 0;
+      padding: 15px;
+      background: #f8f9fa;
+      border-radius: 8px;
+    }
+    .ideal-tag {
+      display: inline-block;
+      padding: 6px 12px;
+      background: #667eea;
+      color: white;
+      border-radius: 20px;
+      font-size: 12px;
+      margin: 4px;
+    }
+    .facilities {
+      margin-top: 20px;
+    }
+    .facility {
+      display: flex;
+      align-items: center;
+      padding: 12px;
+      background: #f8f9fa;
+      border-radius: 8px;
+      margin-bottom: 8px;
+    }
+    .facility-name {
+      flex: 1;
+      font-weight: 500;
+    }
+    .facility-distance {
+      color: #666;
+      font-size: 14px;
+    }
+    .error {
+      background: #fee;
+      color: #c33;
+      padding: 15px;
+      border-radius: 8px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🏘️ Bogotá Insights</h1>
+    
+    <div class="search-box">
+      <div class="input-group">
+        <input type="text" id="address" placeholder="Ej: Calle 100 # 15-30, Bogotá" value="Lagos de Cordoba, Bogotá">
+        <button onclick="analyze()">Analizar</button>
+      </div>
+      <small style="color: #666;">O usa coordenadas: </small>
+      <div class="input-group" style="margin-top: 10px;">
+        <input type="number" id="lat" placeholder="Latitud" value="4.706116" step="any">
+        <input type="number" id="lng" placeholder="Longitud" value="-74.068203" step="any">
+      </div>
+    </div>
+
+    <div id="loading" class="loading" style="display: none;">
+      📊 Analizando zona... (cargando 27,923 puntos de interés)
+    </div>
+
+    <div id="error" class="error" style="display: none;"></div>
+
+    <div id="widget" class="widget">
+      <!-- Content will be injected here -->
+    </div>
+  </div>
+
+  <script>
+    let poisData = [];
+    let dataLoaded = false;
+
+    // Load POIs data
+    async function loadData() {
+      if (dataLoaded) return;
+      
+      try {
+        const response = await fetch('bogota-pois.geojson');
+        const data = await response.json();
+        poisData = data.features;
+        dataLoaded = true;
+        console.log(`Loaded ${poisData.length} POIs`);
+      } catch (err) {
+        console.error('Error loading data:', err);
+        showError('Error cargando datos. Por favor recarga la página.');
+      }
+    }
+
+    // Calculate distance between two points (Haversine formula)
+    function getDistance(lat1, lng1, lat2, lng2) {
+      const R = 6371000; // Earth radius in meters
+      const dLat = (lat2 - lat1) * Math.PI / 180;
+      const dLng = (lng2 - lng1) * Math.PI / 180;
+      const a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+                Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+                Math.sin(dLng/2) * Math.sin(dLng/2);
+      const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+      return R * c;
+    }
+
+    // Get profile based on scores
+    function getProfile(scores, counts, density) {
+      const { transport, commerce, education, health, recreation } = scores;
+      const total = Object.values(counts).reduce((a, b) => a + b, 0);
+      
+      if (transport >= 70 && commerce >= 70 && density === 'high') {
+        return {
+          type: 'urban',
+          headline: 'Corazón Urbano',
+          tagline: 'Todo a tu alcance',
+          highlights: [
+            `🚌 ${counts.transport} opciones de transporte`,
+            `🛒 ${counts.commerce} establecimientos comerciales`,
+            '⚡ Máxima conectividad',
+            '🏃 Vida dinámica y activa'
+          ],
+          idealFor: ['Profesionales', 'Jóvenes', 'Amantes de la ciudad']
+        };
+      }
+      
+      if (education >= 60 && recreation >= 60) {
+        return {
+          type: 'family',
+          headline: 'Ideal para Familias',
+          tagline: 'Espacio para crecer',
+          highlights: [
+            `🎓 ${counts.education} instituciones educativas`,
+            `🌳 ${counts.recreation} zonas de recreación`,
+            `🏥 ${counts.health} servicios de salud`,
+            '👨‍👩‍👧‍👦 Ambiente familiar seguro'
+          ],
+          idealFor: ['Familias con niños', 'Parejas', 'Long-term residents']
+        };
+      }
+      
+      if (density === 'low' && recreation >= 40 && transport < 50) {
+        return {
+          type: 'tranquil',
+          headline: 'Oasis de Tranquilidad',
+          tagline: 'Espacio para respirar',
+          highlights: [
+            `🌳 ${counts.recreation} parques y zonas verdes`,
+            '🏡 Ambiente residencial tranquilo',
+            '🌄 Aire puro y espacio abierto',
+            '🚗 Conexión por carretera'
+          ],
+          idealFor: ['Busca tranquilidad', 'Teletrabajadores', 'Amantes naturaleza']
+        };
+      }
+      
+      if (commerce >= 70 && counts.commerce > 20) {
+        return {
+          type: 'commercial',
+          headline: 'Zona Comercial',
+          tagline: 'Vida y movimiento',
+          highlights: [
+            `🛒 ${counts.commerce} comercios cercanos`,
+            '🍽️ Variedad gastronómica',
+            '🏪 Servicios disponibles',
+            '💼 Oportunidades de negocio'
+          ],
+          idealFor: ['Emprendedores', 'Comerciantes', 'Urbanitas']
+        };
+      }
+      
+      if (density === 'medium' && total > 20) {
+        return {
+          type: 'suburban',
+          headline: 'Equilibrio Perfecto',
+          tagline: 'Lo mejor de dos mundos',
+          highlights: [
+            '🏘️ Barrio consolidado',
+            `✓ ${total} servicios a tu alcance`,
+            '🚶 Buena accesibilidad peatonal',
+            '🌳 Espacios verdes cercanos'
+          ],
+          idealFor: ['Familias jóvenes', 'Primeros compradores', 'Busca equilibrio']
+        };
+      }
+      
+      return {
+        type: 'mixed',
+        headline: 'Zona en Desarrollo',
+        tagline: 'Potencial por descubrir',
+        highlights: [
+          '📈 Área con crecimiento',
+          `📍 ${total} facilidades identificadas`,
+          '🏗️ Oportunidad de inversión',
+          '💰 Buena relación precio-valor'
+        ],
+        idealFor: ['Inversionistas', 'Primera vivienda', 'Visionarios']
+      };
+    }
+
+    // Analyze location
+    async function analyze() {
+      const lat = parseFloat(document.getElementById('lat').value);
+      const lng = parseFloat(document.getElementById('lng').value);
+      
+      if (isNaN(lat) || isNaN(lng)) {
+        showError('Por favor ingresa coordenadas válidas');
+        return;
+      }
+      
+      document.getElementById('loading').style.display = 'block';
+      document.getElementById('widget').classList.remove('active');
+      document.getElementById('error').style.display = 'none';
+      
+      if (!dataLoaded) {
+        await loadData();
+      }
+      
+      // Find nearby POIs
+      const nearbyPois = [];
+      const counts = { transport: 0, commerce: 0, education: 0, health: 0, recreation: 0 };
+      
+      for (const poi of poisData) {
+        const coords = poi.geometry.coordinates;
+        const distance = getDistance(lat, lng, coords[1], coords[0]);
+        
+        if (distance <= 1000) {
+          nearbyPois.push({ ...poi, distance });
+          const cat = poi.properties.category;
+          if (counts[cat] !== undefined) {
+            counts[cat]++;
+          }
+        }
+      }
+      
+      nearbyPois.sort((a, b) => a.distance - b.distance);
+      
+      // Calculate scores
+      const avgCounts = { transport: 3, commerce: 12, education: 4, health: 2, recreation: 8 };
+      const scores = {};
+      
+      for (const [cat, count] of Object.entries(counts)) {
+        if (count === 0) {
+          scores[cat] = 25;
+        } else {
+          const countScore = Math.min((count / avgCounts[cat]) * 50, 60);
+          const catPois = nearbyPois.filter(p => p.properties.category === cat).slice(0, 5);
+          const proximityScore = catPois.reduce((sum, p) => {
+            return sum + Math.max(0, 1 - p.distance / 1000) * 15;
+          }, 0);
+          scores[cat] = Math.round(25 + countScore + proximityScore);
+        }
+      }
+      
+      // Determine profile
+      const totalPois = nearbyPois.length;
+      const density = totalPois > 50 ? 'high' : totalPois > 20 ? 'medium' : 'low';
+      const profile = getProfile(scores, counts, density);
+      
+      // Find top category
+      const topCategory = Object.entries(scores).sort((a, b) => b[1] - a[1])[0];
+      const topScore = Math.min(topCategory[1], 100);
+      const stars = topScore >= 85 ? 5 : topScore >= 70 ? 4 : topScore >= 55 ? 3 : topScore >= 40 ? 2 : 1;
+      const label = topScore >= 85 ? 'Excelente' : topScore >= 70 ? 'Muy Bueno' : topScore >= 55 ? 'Bueno' : 'Aceptable';
+      
+      // Render widget
+      renderWidget({ lat, lng, scores, counts, profile, topScore, stars, label, nearbyPois: nearbyPois.slice(0, 5), totalPois });
+      
+      document.getElementById('loading').style.display = 'none';
+      document.getElementById('widget').classList.add('active');
+    }
+
+    function renderWidget(data) {
+      const widget = document.getElementById('widget');
+      
+      widget.innerHTML = `
+        <div class="score-header">
+          <div class="score-number">${data.topScore}</div>
+          <div class="score-label">${data.label}</div>
+          <div class="stars">${'⭐'.repeat(data.stars)}</div>
+        </div>
+        
+        <div class="profile-section">
+          <div class="profile-title">Perfil de la Zona</div>
+          <div class="profile-headline">${data.profile.headline}</div>
+          <div class="profile-tagline">"${data.profile.tagline}"</div>
+        </div>
+        
+        <div class="highlights">
+          ${data.profile.highlights.map(h => `
+            <div class="highlight">
+              <span class="highlight-icon">${h.split(' ')[0]}</span>
+              <span class="highlight-text">${h.substring(h.indexOf(' ') + 1)}</span>
+            </div>
+          `).join('')}
+        </div>
+        
+        <div class="ideal-for">
+          <div class="profile-title">Ideal Para</div>
+          ${data.profile.idealFor.map(i => `<span class="ideal-tag">${i}</span>
+          `).join('')}
+        </div>
+        
+        <div class="facilities">
+          <div class="profile-title">Más Cercanos (${data.totalPois} en total)</div>
+          ${data.nearbyPois.map(p => `
+            <div class="facility">
+              <span class="facility-name">${p.properties.name}</span>
+              <span class="facility-distance">${Math.round(p.distance)}m</span>
+            </div>
+          `).join('')}
+        </div>
+        
+        <div style="margin-top: 20px; padding-top: 20px; border-top: 2px solid #f0f0f0; font-size: 12px; color: #666; text-align: center;">
+          📍 ${data.lat.toFixed(4)}, ${data.lng.toFixed(4)} · Bogotá Insights Widget
+        </div>
+      `;
+    }
+
+    function showError(msg) {
+      document.getElementById('error').textContent = msg;
+      document.getElementById('error').style.display = 'block';
+      document.getElementById('loading').style.display = 'none';
+    }
+
+    // Load data on page load
+    loadData();
+  </script>
+</body>
+</html>

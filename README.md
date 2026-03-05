@@ -1,131 +1,92 @@
-# Bogota Insights Widget
+# Bogotá Insights Widget - Demo
 
-An embeddable neighborhood insights widget for real estate listings in Bogota, Colombia.
+Widget de insights de barrios para Bogotá. Funciona completamente en el cliente sin necesidad de backend.
 
-## 🏗️ Project Structure
+## 🚀 Demo en Vivo
 
-```
-bogota-insights-widget/
-├── packages/
-│   ├── widget/          # Frontend (Preact + Web Component)
-│   ├── api/             # Backend API (Fastify)
-│   └── shared/          # Shared types and constants
-├── jobs/                # Background data sync jobs
-├── docs/                # Documentation
-└── .github/workflows/   # CI/CD
-```
+**URL:** [https://bogota-insights-demo.vercel.app](https://bogota-insights-demo.vercel.app) *(una vez deployado)*
 
-## 📦 Monorepo Setup
+## 📦 Estructura
 
-This project uses:
-- **pnpm** for package management
-- **Turborepo** for build orchestration
-- **TypeScript** across all packages
+- `index.html` - Frontend con widget interactivo
+- `bogota-pois.geojson` - 27,923 puntos de interés de Bogotá (5.6MB)
 
-## 🚀 Getting Started
+## 🎯 Características
 
-### Prerequisites
-- Node.js 20+
-- pnpm 8+
-- PostgreSQL 14+ with PostGIS extension
-- Redis 7+
+- ✅ **Sin backend** - Todo el procesamiento en el navegador
+- ✅ **27,923 POIs** reales de Bogotá
+- ✅ **Cálculo instantáneo** de scores para cualquier ubicación
+- ✅ **6 perfiles de zona** (Urbano, Familiar, Tranquilo, etc.)
+- ✅ **Enfoque positivo** - Ninguna zona es "mala"
 
-### Installation
+## 🏗️ Deploy
 
+### Opción 1: Vercel (Recomendada)
+
+1. Instalar Vercel CLI:
 ```bash
-# Install dependencies
-pnpm install
-
-# Set up environment variables
-cp packages/api/.env.example packages/api/.env
-# Edit .env with your configuration
-
-# Run database migrations
-cd packages/api && pnpm run migrate
-
-# Start development servers
-pnpm dev
+npm i -g vercel
 ```
 
-This will start:
-- Widget dev server at http://localhost:5173
-- API server at http://localhost:3000
-
-## 📚 Package Details
-
-### @bogota-insights/widget
-Preact-based web component that embeds into any website.
-
-**Tech:** Preact, Web Components, Shadow DOM, Vite
-
-### @bogota-insights/api
-Fastify REST API serving neighborhood insights.
-
-**Tech:** Fastify, PostgreSQL/PostGIS, Redis, Zod
-
-### @bogota-insights/shared
-Shared TypeScript types and constants.
-
-## 🗂️ Data Sources
-
-- **IDECA** - Official Bogota geospatial data
-- **TransMilenio** - Public transit GTFS data
-- **OpenStreetMap** - Supplementary POI data
-
-## 📖 Documentation
-
-See `/docs` folder for:
-- [UX Design Specification](../docs/ux-design-spec.md)
-- [Technical Architecture](../technical-architecture.md)
-- [Data Validation Results](../data-validation-results.md)
-- [Colombian Data Sources Research](../colombian-data-sources-research.md)
-
-## 🧪 Testing
-
+2. Deploy:
 ```bash
-# Run all tests
-pnpm test
-
-# Run linting
-pnpm lint
-
-# Format code
-pnpm format
+cd bogota-insights-widget
+vercel --prod
 ```
 
-## 📦 Building
+### Opción 2: Netlify
 
-```bash
-# Build all packages
-pnpm build
+Arrastrar carpeta a [netlify.com/drop](https://netlify.com/drop)
 
-# Build specific package
-cd packages/widget && pnpm build
-```
+### Opción 3: GitHub Pages
 
-## 🚢 Deployment
+1. Crear repo en GitHub
+2. Subir archivos
+3. Activar GitHub Pages en settings
 
-See [Technical Architecture](../technical-architecture.md) for deployment strategy.
+## 📊 Fuentes de Datos
 
-Recommended stack:
-- Railway/Render for API + Database
-- Upstash for Redis
-- Cloudflare CDN for widget assets
+Los 27,923 POIs incluyen:
+- **IDECA** - Datos oficiales de Bogotá (educación, salud)
+- **OpenStreetMap** - Comercios, restaurantes, parques
+- **TransMilenio** - Estaciones y paradas de transporte
 
-## 📄 License
+## 🔧 Tecnologías
 
-Proprietary - All rights reserved
+- HTML5 + CSS3 + Vanilla JavaScript
+- Haversine formula para cálculo de distancias
+- GeoJSON para datos geoespaciales
 
-## 🤝 Contributing
+## 📍 Uso
 
-This is a private project. Contact the maintainers for access.
+1. Ingresar coordenadas (lat, lng) o dirección
+2. Hacer clic en "Analizar"
+3. Ver el widget con:
+   - Score general (0-100)
+   - Perfil de la zona (Urbano/Familiar/etc.)
+   - Fortalezas específicas
+   - POIs más cercanos
 
-## ⚠️ Important Notes
+## 📝 Ejemplos de Ubicaciones
 
-- **Data Quality:** OSM has significant gaps in lower-estrato areas. IDECA is the primary source.
-- **Colombian Law:** Complies with Ley 1581 de 2012 (data protection) and Ley 1712 de 2014 (transparency).
-- **Estrato Sensitivity:** Be careful not to reinforce socioeconomic discrimination in scoring/presentation.
+| Zona | Latitud | Longitud |
+|------|---------|----------|
+| Chapinero | 4.65 | -74.05 |
+| Lagos de Córdoba | 4.706116 | -74.068203 |
+| Zona T | 4.67 | -74.05 |
+| Centro | 4.60 | -74.08 |
 
-## 📞 Support
+## ⚠️ Limitaciones
 
-Contact: [your-email@example.com]
+- El archivo GeoJSON es de 5.6MB (descarga inicial)
+- Cálculo en cliente puede ser lento en dispositivos móviles antiguos
+- No incluye geocodificación de direcciones (solo coordenadas)
+
+## 🔗 Links
+
+- Repositorio: https://github.com/segamboa/bogota-insights-widget
+- API completa: *(documentación del backend)*
+
+---
+
+*Demo creada con datos reales de Bogotá - 2026*
