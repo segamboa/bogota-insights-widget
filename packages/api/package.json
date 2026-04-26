@@ -16,7 +16,16 @@
     "ingest": "tsx src/services/ingest-runner.ts --all",
     "ingest:ideca": "tsx src/services/ingest-runner.ts --ideca",
     "ingest:transmilenio": "tsx src/services/ingest-runner.ts --transmilenio",
-    "ingest:osm": "tsx src/services/ingest-runner.ts --osm"
+    "ingest:osm": "tsx src/services/ingest-runner.ts --osm",
+    "ingest:properties": "tsx src/services/property-ingest-runner.ts --all",
+    "ingest:properties:metro": "tsx src/services/property-ingest-runner.ts --metrocuadrado",
+    "ingest:properties:metro:pw": "tsx src/services/scrapers/metrocuadrado-playwright.ts",
+    "ingest:properties:sample": "tsx src/services/scrapers/sample-generator.ts",
+    "export:ml": "tsx src/services/export-ml.ts",
+    "verify:etl": "bash scripts/verify-etl.sh",
+    "verify:etl:strict": "bash scripts/verify-etl.sh --strict",
+    "verify:ts": "npx tsx src/verification/etl-check.ts",
+    "pipeline": "npm run migrate && npm run ingest && npm run verify:etl"
   },
   "dependencies": {
     "@bogota-insights/shared": "workspace:*",
