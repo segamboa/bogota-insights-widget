@@ -104,7 +104,7 @@ async function main() {
       pois = parseOsmFile(filepath, config);
       console.log(`  Found ${pois.length} POIs`);
     } catch (err) {
-      console.error(`  Error reading file: ${err.message}`);
+      console.error(`  Error reading file: ${(err as Error).message}`);
       continue;
     }
 
@@ -134,7 +134,7 @@ async function main() {
         if (result.isNew) created++;
         else updated++;
       } catch (err) {
-        if (errors < 5) console.error(`    Error: ${err.message}`);
+        if (errors < 5) console.error(`    Error: ${(err as Error).message}`);
         errors++;
       }
     }

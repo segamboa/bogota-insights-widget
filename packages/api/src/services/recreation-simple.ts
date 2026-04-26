@@ -129,24 +129,27 @@ async function main() {
     if (i % 100 === 0) console.log(`Progress: ${i}/${pois.length}`);
 
     try {
-      const result = await upsertPoi({
-        name: poi.name,
-        category: 'recreation' as CategoryType,
-        subcategory: poi.subcategory,
-        lat: poi.lat,
-        lng: poi.lng,
-        source: 'osm',
-        sourceDataset: 'osm-recreation',
-        sourceId: poi.sourceId,
-        rawData: {},
-        confidence: 80,
-      });
+      const result = await upsertPoi(
+        'osm',
+        poi.sourceId,
+        'osm-recreation',
+        'recreation',
+        poi.subcategory,
+        poi.name,
+        null,
+        poi.lng,
+        poi.lat,
+        null,
+        80,
+        {},
+        null,
+      );
 
-      if (result === 'created') created++;
-      else if (result === 'updated') updated++;
-      else skipped++;
+      if (result.isNew) created++;
+      else updated++;
+
     } catch (err) {
-      console.error(`Error: ${poi.sourceId}`, err.message);
+      console.error(`Error: ${poi.sourceId}`, (err as Error).message);
       errors++;
     }
   }

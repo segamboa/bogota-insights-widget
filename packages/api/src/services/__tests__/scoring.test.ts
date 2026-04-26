@@ -14,8 +14,10 @@ import type { CategoryType } from '@bogota-insights/shared';
 // Helper to create mock POI rows
 function createMockPoi(overrides: Partial<PoiRow> = {}): PoiRow {
   return {
-    id: 'test-1',
+    id: 1,
+    source_id: 'test-1',
     name: 'Test POI',
+    name_es: null,
     category: 'transport' as CategoryType,
     subcategory: 'bus_stop',
     lat: 4.65,
@@ -23,6 +25,8 @@ function createMockPoi(overrides: Partial<PoiRow> = {}): PoiRow {
     distance_m: 100,
     source: 'osm',
     confidence: 80,
+    address: null,
+    source_tags: {},
     ...overrides,
   };
 }
@@ -49,10 +53,10 @@ describe('computeCategoryScore', () => {
 
   it('should compute higher score for more POIs', () => {
     const fewPois = Array(5).fill(null).map((_, i) => 
-      createMockPoi({ id: `test-${i}`, distance_m: 200 * (i + 1) })
+      createMockPoi({ id: i + 1, distance_m: 200 * (i + 1) })
     );
     const manyPois = Array(50).fill(null).map((_, i) => 
-      createMockPoi({ id: `test-${i}`, distance_m: 200 * ((i % 10) + 1) })
+      createMockPoi({ id: i + 1, distance_m: 200 * ((i % 10) + 1) })
     );
 
     const fewResult = computeCategoryScore('transport', fewPois, 1000);
@@ -109,7 +113,7 @@ describe('computeCategoryScore', () => {
 
   it('should scale with different radius values', () => {
     const pois = Array(25).fill(null).map((_, i) => 
-      createMockPoi({ id: `test-${i}`, distance_m: 100 })
+      createMockPoi({ id: i + 1, distance_m: 100 })
     );
 
     const smallRadius = computeCategoryScore('transport', pois, 500);

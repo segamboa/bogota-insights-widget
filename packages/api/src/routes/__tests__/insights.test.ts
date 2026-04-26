@@ -6,6 +6,21 @@ import { describe, it, expect, vi, beforeEach } from 'vitest';
 import type { FastifyInstance } from 'fastify';
 import Fastify from 'fastify';
 import { insightsRoutes } from '../insights.js';
+import type { CategoryType, CategoryScore } from '@bogota-insights/shared';
+
+function mockCategories(): Record<CategoryType, CategoryScore> {
+  const cats: CategoryType[] = ['transport', 'commerce', 'education', 'health', 'recreation'];
+  const result = {} as Record<CategoryType, CategoryScore>;
+  for (const cat of cats) {
+    result[cat] = {
+      score: 70,
+      summary: 'Good',
+      pois: [],
+      counts: {},
+    };
+  }
+  return result;
+}
 
 // Mock the insights service
 vi.mock('../../services/insights.js', () => ({
@@ -49,7 +64,7 @@ describe('insightsRoutes', () => {
     const mockInsights = {
       location: { lat: 4.65, lng: -74.08, neighborhood: 'Test' },
       scores: { overall: 75, transport: 80, commerce: 70, education: 60, health: 90, recreation: 50 },
-      categories: {},
+      categories: mockCategories(),
       meta: { data_timestamp: new Date().toISOString(), radius_m: 1000, cache_hit: false, sources: ['test'] },
       _cacheHit: false,
     };
@@ -72,7 +87,7 @@ describe('insightsRoutes', () => {
     const mockInsights = {
       location: { lat: 4.65, lng: -74.08 },
       scores: { overall: 75, transport: 80, commerce: 70, education: 60, health: 90, recreation: 50 },
-      categories: {},
+      categories: mockCategories(),
       meta: { data_timestamp: new Date().toISOString(), radius_m: 500, cache_hit: false, sources: ['test'] },
       _cacheHit: false,
     };
@@ -93,7 +108,7 @@ describe('insightsRoutes', () => {
     const mockInsights = {
       location: { lat: 4.65, lng: -74.08 },
       scores: { overall: 75, transport: 80, commerce: 70, education: 60, health: 90, recreation: 50 },
-      categories: {},
+      categories: mockCategories(),
       meta: { data_timestamp: new Date().toISOString(), radius_m: 1000, cache_hit: false, sources: ['test'] },
       _cacheHit: false,
     };

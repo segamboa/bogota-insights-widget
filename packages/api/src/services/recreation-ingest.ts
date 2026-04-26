@@ -263,23 +263,24 @@ async function ingestRecreationDataset(
 
   for (const poi of pois) {
     try {
-      const result = await upsertPoi({
-        name: poi.name,
-        category: 'recreation' as CategoryType,
-        subcategory: poi.subcategory,
-        lat: poi.lat,
-        lng: poi.lng,
-        source: 'osm',
-        sourceDataset: `osm-recreation-${config.name.toLowerCase().replace(/\s+/g, '-')}`,
-        sourceId: poi.sourceId,
-        rawData: {},
-        confidence: 80,
-        syncRunId,
-      });
+      const result = await upsertPoi(
+        'osm',
+        poi.sourceId,
+        `osm-recreation-${config.name.toLowerCase().replace(/\s+/g, '-')}`,
+        'recreation',
+        poi.subcategory,
+        poi.name,
+        null,
+        poi.lng,
+        poi.lat,
+        null,
+        80,
+        {},
+        null,
+      );
 
-      if (result === 'created') created++;
-      else if (result === 'updated') updated++;
-      else skipped++;
+      if (result.isNew) created++;
+      else updated++;
     } catch (err) {
       console.error(`  Error upserting POI ${poi.sourceId}:`, err);
       skipped++;
@@ -296,19 +297,22 @@ async function ingestRecreationDataset(
 export async function ingestAllRecreationData(): Promise<void> {
   console.log('=== Recreation Data Ingestion ===\n');
 
-  const syncRun = await createSyncRun('osm', 'recreation');
-  console.log(`Created sync run: ${syncRun.id}`);
+  const syncRunId = await createSyncRun('osm', 'recreation');
+  console.log(`Created sync run: ${syncRunId}`);
 
   const totals = { created: 0, updated: 0, skipped: 0 };
 
   for (const dataset of RECREATION_DATASETS) {
-    const result = await ingestRecreationDataset(dataset, syncRun.id);
+    const result = await ingestRecreationDataset(dataset, syncRunId);
     totals.created += result.created;
     totals.updated += result.updated;
     totals.skipped += result.skipped;
   }
 
-  await completeSyncRun(syncRun.id, totals.created + totals.updated, totals.skipped);
+  await completeSyncRun(syncRunId, 'completed', {
+    records_created: totals.created,
+    records_updated: totals.updated,
+  });
 
   console.log('\n=== Recreation Ingestion Complete ===');
   console.log(`Total: Created ${totals.created}, Updated ${totals.updated}, Skipped ${totals.skipped}`);
