@@ -2,6 +2,7 @@ import { createHash } from 'crypto';
 import type { FastifyRequest, FastifyReply } from 'fastify';
 import { query } from '../db/connection.js';
 import { ERROR_CODES } from '@bogota-insights/shared';
+import { TIER_LIMITS } from '../config.js';
 
 export interface AuthenticatedRequest {
   apiKeyId?: string;
@@ -12,12 +13,6 @@ export interface AuthenticatedRequest {
     perDay: number;
   };
 }
-
-const TIER_LIMITS: Record<string, { perMinute: number; perDay: number }> = {
-  free: { perMinute: 10, perDay: 500 },
-  standard: { perMinute: 60, perDay: 10000 },
-  enterprise: { perMinute: 300, perDay: 100000 },
-};
 
 /**
  * Hash an API key for comparison with stored hashes.

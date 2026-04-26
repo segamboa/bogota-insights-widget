@@ -11,6 +11,13 @@ import { config } from 'dotenv';
 config();
 
 import { pool, query } from '../db/connection.js';
+import {
+  ETL_THRESHOLDS,
+  ETL_CATEGORY_RANGES,
+  ETL_SUBCATEGORY_MIN,
+  ETL_DATA_FRESHNESS_DAYS,
+  GEO_BOUNDS,
+} from '../config.js';
 
 // ANSI color codes for output
 const colors = {
@@ -35,13 +42,7 @@ interface Thresholds {
   critical: number;
 }
 
-// Thresholds from SPEC-005
-const THRESHOLDS: Record<string, Thresholds> = {
-  total_pois: { min: 20000, optimal: 27000, critical: 15000 },
-  ideca: { min: 4000, optimal: 6000, critical: 3000 },
-  osm: { min: 12000, optimal: 18000, critical: 10000 },
-  transmilenio: { min: 100, optimal: 150, critical: 50 },
-};
+// Thresholds loaded from config.ts (env-overridable, defaults from SPEC-005)
 
 // ============================================================================
 // CHECK FUNCTIONS
@@ -68,7 +69,7 @@ async function checkSourceCounts(): Promise<CheckResult> {
   const issues: string[] = [];
 
   // Check individual sources
-  for (const [source, threshold] of Object.entries(THRESHOLDS)) {
+  for (const [source, threshold] of Object.entries(ETL_THRESHOLDS)) {
     if (source === 'total_pois') continue;
     const count = counts[source] || 0;
     if (count < threshold.critical) {
@@ -79,15 +80,15 @@ async function checkSourceCounts(): Promise<CheckResult> {
   }
 
   // Check total
-  if (total < THRESHOLDS.total_pois.critical) {
-    issues.push(`Total: ${total} (critical: < ${THRESHOLDS.total_pois.critical})`);
-  } else if (total < THRESHOLDS.total_pois.min) {
-    issues.push(`Total: ${total} (low: < ${THRESHOLDS.total_pois.min})`);
+  if (total < ETL_THRESHOLDS.total_pois.critical) {
+    issues.push(`Total: ${total} (critical: < ${ETL_THRESHOLDS.total_pois.critical})`);
+  } else if (total < ETL_THRESHOLDS.total_pois.min) {
+    issues.push(`Total: ${total} (low: < ${ETL_THRESHOLDS.total_pois.min})`);
   }
 
   const status = issues.length === 0 ? 'PASS' : issues.some(i => i.includes('critical')) ? 'FAIL' : 'WARN';
   const message = issues.length === 0 
-    ? `Total: ${total.toLocaleString()} POIs (optimal: ${THRESHOLDS.total_pois.optimal})`
+    ? `Total: ${total.toLocaleString()} POIs (optimal: ${ETL_THRESHOLDS.total_pois.optimal})`
     : issues.join(', ');
 
   return {
@@ -110,13 +111,7 @@ async function checkCategoryDistribution(): Promise<CheckResult> {
     ORDER BY count DESC
   `);
 
-  const expected: Record<string, { min: number; max: number }> = {
-    education: { min: 3000, max: 5000 },
-    health: { min: 2000, max: 3000 },
-    commerce: { min: 10000, max: 15000 },
-    transport: { min: 5000, max: 7000 },
-    recreation: { min: 3000, max: 5000 },
-  };
+  const expected = ETL_CATEGORY_RANGES;
 
   const counts: Record<string, number> = {};
   const issues: string[] = [];
@@ -170,18 +165,18 @@ async function checkValidCoordinates(): Promise<CheckResult> {
     SELECT COUNT(*) as count
     FROM pois
     WHERE location IS NULL
-       OR ST_Y(location::geometry) < 4.45
-       OR ST_Y(location::geometry) > 4.84
-       OR ST_X(location::geometry) < -74.27
-       OR ST_X(location::geometry) > -73.88
-  `);
+       OR ST_Y(location::geometry) < $1
+       OR ST_Y(location::geometry) > $2
+       OR ST_X(location::geometry) < $3
+       OR ST_X(location::geometry) > $4
+  `, [GEO_BOUNDS.south, GEO_BOUNDS.north, GEO_BOUNDS.west, GEO_BOUNDS.east]);
 
   const invalid = parseInt(result.rows[0].count, 10);
 
   return {
     name: 'CHK-004: Valid Coordinates',
     status: invalid === 0 ? 'PASS' : 'FAIL',
-    message: invalid === 0 ? 'All POIs have valid coordinates within Bogota bounds' : `${invalid} POI(s) with invalid coordinates`,
+    message: invalid === 0 ? 'All POIs have valid coordinates within configured bounds' : `${invalid} POI(s) with invalid coordinates`,
   };
 }
 
@@ -288,14 +283,8 @@ async function checkSubcategoryDiversity(): Promise<CheckResult> {
     };
   }
 
-  // Expected minimum diversity
-  const expected: Record<string, number> = {
-    transport: 3,    // bus_station, bus_stop, parada_sitp
-    commerce: 6,     // restaurante, cafe, banco, supermercado, tienda, centro_comercial
-    education: 4,    // school, university, kindergarten, library
-    health: 4,       // hospital, clinic, doctors, pharmacy
-    recreation: 3,   // park, playground, cinema
-  };
+  // Expected minimum diversity from config
+  const expected = ETL_SUBCATEGORY_MIN;
 
   const issues: string[] = [];
   for (const [cat, minUnique] of Object.entries(expected)) {
@@ -336,15 +325,15 @@ async function checkDataFreshness(): Promise<CheckResult> {
     const daysAgo = Math.floor((now.getTime() - lastSync.getTime()) / (1000 * 60 * 60 * 24));
     details[row.source] = `${daysAgo} days ago`;
 
-    if (daysAgo > 30) {
-      issues.push(`${row.source}: ${daysAgo} days old`);
+    if (daysAgo > ETL_DATA_FRESHNESS_DAYS) {
+      issues.push(`${row.source}: ${daysAgo} days old (max: ${ETL_DATA_FRESHNESS_DAYS})`);
     }
   }
 
   return {
     name: 'CHK-008: Data Freshness',
     status: issues.length === 0 ? 'PASS' : 'WARN',
-    message: issues.length === 0 ? 'All data synced within last 30 days' : issues.join(', '),
+    message: issues.length === 0 ? `All data synced within last ${ETL_DATA_FRESHNESS_DAYS} days` : issues.join(', '),
     details,
   };
 }
