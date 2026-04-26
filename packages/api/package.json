@@ -25,7 +25,8 @@
     "verify:etl": "bash scripts/verify-etl.sh",
     "verify:etl:strict": "bash scripts/verify-etl.sh --strict",
     "verify:ts": "npx tsx src/verification/etl-check.ts",
-    "pipeline": "npm run migrate && npm run ingest && npm run verify:etl"
+    "pipeline": "npm run migrate && npm run ingest && npm run verify:etl",
+    "seed": "tsx src/db/seed.ts"
   },
   "dependencies": {
     "@bogota-insights/shared": "workspace:*",
