@@ -1,92 +1,174 @@
-# Bogotá Insights Widget - Demo
+# Bogotá Insights Widget
 
-Widget de insights de barrios para Bogotá. Funciona completamente en el cliente sin necesidad de backend.
+Widget embebible de **insights inmobiliarios para Bogotá, Colombia**. Se inserta en páginas de inmobiliarias como un script y analiza la ubicación de cada propiedad para mostrar scores de barrio, perfiles de zona y puntos de interés cercanos.
 
-## 🚀 Demo en Vivo
+## 🏗️ Arquitectura
 
-**URL:** [https://bogota-insights-demo.vercel.app](https://bogota-insights-demo.vercel.app) *(una vez deployado)*
+Monorepo con **pnpm workspaces** y **Turborepo**:
 
-## 📦 Estructura
-
-- `index.html` - Frontend con widget interactivo
-- `bogota-pois.geojson` - 27,923 puntos de interés de Bogotá (5.6MB)
-
-## 🎯 Características
-
-- ✅ **Sin backend** - Todo el procesamiento en el navegador
-- ✅ **27,923 POIs** reales de Bogotá
-- ✅ **Cálculo instantáneo** de scores para cualquier ubicación
-- ✅ **6 perfiles de zona** (Urbano, Familiar, Tranquilo, etc.)
-- ✅ **Enfoque positivo** - Ninguna zona es "mala"
-
-## 🏗️ Deploy
-
-### Opción 1: Vercel (Recomendada)
-
-1. Instalar Vercel CLI:
-```bash
-npm i -g vercel
+```
+packages/
+  api/      → Fastify backend (Node.js 20+, TypeScript, PostGIS, Redis)
+  widget/   → Preact web component embebible (Vite)
+  shared/   → Tipos, constantes y utilidades compartidas
+jobs/       → Vacío (reservado para futuros workers)
+specs/      → Especificaciones SDD del pipeline ETL
+docs/       → Documentación adicional
 ```
 
-2. Deploy:
+**Backend:** API REST con autenticación por API key, rate limiting y 3 niveles de caché (Redis → PostgreSQL insights_cache → localStorage del widget).
+
+**Frontend:** Web Component `<bogota-insights-widget>` con Shadow DOM para aislamiento CSS. Se distribuye como un bundle JS + CSS que las inmobiliarias insertan con un `<script>`.
+
+## 🚀 Setup local
+
+### Requisitos
+
+- Node.js ≥20
+- pnpm ≥8
+- Docker + docker-compose
+
+### 1. Levantar infraestructura
+
 ```bash
-cd bogota-insights-widget
-vercel --prod
+docker-compose up -d
 ```
 
-### Opción 2: Netlify
+Esto levanta PostgreSQL 16 + PostGIS y Redis 7.
 
-Arrastrar carpeta a [netlify.com/drop](https://netlify.com/drop)
+### 2. Instalar dependencias
 
-### Opción 3: GitHub Pages
+```bash
+pnpm install
+```
 
-1. Crear repo en GitHub
-2. Subir archivos
-3. Activar GitHub Pages en settings
+### 3. Configurar variables de entorno
 
-## 📊 Fuentes de Datos
+Copiar y ajustar:
 
-Los 27,923 POIs incluyen:
-- **IDECA** - Datos oficiales de Bogotá (educación, salud)
-- **OpenStreetMap** - Comercios, restaurantes, parques
-- **TransMilenio** - Estaciones y paradas de transporte
+```bash
+cp packages/api/.env.example packages/api/.env
+```
 
-## 🔧 Tecnologías
+### 4. Ejecutar migraciones
 
-- HTML5 + CSS3 + Vanilla JavaScript
-- Haversine formula para cálculo de distancias
-- GeoJSON para datos geoespaciales
+```bash
+cd packages/api
+pnpm migrate
+```
 
-## 📍 Uso
+### 5. Seed de datos de desarrollo (opcional, rápido)
 
-1. Ingresar coordenadas (lat, lng) o dirección
-2. Hacer clic en "Analizar"
-3. Ver el widget con:
-   - Score general (0-100)
-   - Perfil de la zona (Urbano/Familiar/etc.)
-   - Fortalezas específicas
-   - POIs más cercanos
+Si quieres probar el widget inmediatamente sin descargar datos reales:
 
-## 📝 Ejemplos de Ubicaciones
+```bash
+cd packages/api
+pnpm seed
+```
 
-| Zona | Latitud | Longitud |
-|------|---------|----------|
-| Chapinero | 4.65 | -74.05 |
-| Lagos de Córdoba | 4.706116 | -74.068203 |
-| Zona T | 4.67 | -74.05 |
-| Centro | 4.60 | -74.08 |
+Inserta ~25 POIs de demo alrededor de Chapinero y una API key de desarrollo.
 
-## ⚠️ Limitaciones
+### 6. Ingesta de datos reales (POIs)
 
-- El archivo GeoJSON es de 5.6MB (descarga inicial)
-- Cálculo en cliente puede ser lento en dispositivos móviles antiguos
-- No incluye geocodificación de direcciones (solo coordenadas)
+```bash
+pnpm ingest
+```
 
-## 🔗 Links
+Descarga e inserta datos de IDECA, OpenStreetMap y TransMilenio. Requiere conexión a internet.
 
-- Repositorio: https://github.com/segamboa/bogota-insights-widget
-- API completa: *(documentación del backend)*
+### 7. Verificar calidad del ETL
+
+```bash
+pnpm verify:etl
+```
+
+Ejecuta 8 checks automatizados sobre los datos ingestados.
+
+### 7. Levantar en modo desarrollo
+
+```bash
+# Terminal 1: API
+pnpm dev
+
+# Terminal 2: Widget demo
+# (ver packages/widget/README.md)
+```
+
+## 🧪 Testing
+
+```bash
+# Ejecutar todos los tests
+pnpm test
+
+# Tests con cobertura (API)
+cd packages/api
+pnpm test:coverage
+```
+
+**Nota:** Actualmente solo `packages/api` tiene tests. `widget` y `shared` están pendientes.
+
+## 📦 Scripts útiles por package
+
+### `packages/api`
+
+| Script | Descripción |
+|--------|-------------|
+| `pnpm dev` | API en modo watch (tsx) |
+| `pnpm seed` | Inserta datos de demo para desarrollo |
+| `pnpm ingest` | Pipeline completo de ingesta |
+| `pnpm ingest:ideca` | Solo IDECA |
+| `pnpm ingest:osm` | Solo OpenStreetMap |
+| `pnpm ingest:transmilenio` | Solo TransMilenio |
+| `pnpm verify:etl` | Verificación SDD del ETL |
+| `pnpm verify:etl:strict` | Verificación estricta (falla en warnings) |
+| `pnpm pipeline` | migrate + ingest + verify |
+| `pnpm test` | Tests unitarios con Vitest |
+
+### `packages/widget`
+
+| Script | Descripción |
+|--------|-------------|
+| `pnpm dev` | Servidor de desarrollo Vite |
+| `pnpm build` | Compila el bundle para producción |
+| `pnpm preview` | Previsualiza el build |
+
+## 📡 API Endpoints
+
+| Endpoint | Auth | Descripción |
+|----------|------|-------------|
+| `GET /health` | — | Estado de DB + Redis |
+| `GET /v1/insights` | API Key | Análisis completo de barrio |
+| `GET /v1/scores` | API Key | Scores ligeros |
+| `GET /v1/pois` | API Key | Datos crudos de POIs |
+| `GET /v1/heatmap` | API Key | Datos para heatmap |
+| `GET /v1/facilities` | API Key | Instalaciones cercanas |
+| `GET /v1/profiles` | API Key | Perfiles de ubicación |
+
+## 📊 Fuentes de datos
+
+Los POIs se ingestan desde:
+
+- **IDECA** — Datos oficiales de Bogotá (colegios, IPS, bibliotecas, parques)
+- **OpenStreetMap** — Comercios, restaurantes, parques, paradas SITP
+- **TransMilenio** — Estaciones y paradas vía API Esri REST
+
+## 🗺️ Roadmap
+
+- [x] Widget embebible con análisis de barrio
+- [x] Pipeline ETL con verificación SDD
+- [x] API REST con caché multi-nivel
+- [ ] Tests para widget y shared
+- [ ] Dockerfile para API
+- [ ] Multi-fuente de propiedades (MetroCuadrado → FincaRaíz, Properati)
+- [ ] Grafo de conocimiento (planeado, sin especificación aún)
+
+## 📚 Documentación adicional
+
+- `DEPLOYMENT.md` — Guía de deploy en producción
+- `SECURITY-AUDIT.md` — Auditoría de seguridad
+- `specs/SPEC-ETL-v1.0.md` — Especificaciones del pipeline ETL
+- `specs/SDD-RUNBOOK.md` — Runbook de operación SDD
 
 ---
 
-*Demo creada con datos reales de Bogotá - 2026*
+*Widget creado con datos reales de Bogotá — 2026*
