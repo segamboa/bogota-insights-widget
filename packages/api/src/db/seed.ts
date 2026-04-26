@@ -1,8 +1,11 @@
 #!/usr/bin/env tsx
 /**
  * Seed script for local development.
- * Inserts a dev API key and sample POIs so the widget works immediately
+ * Inserts sample POIs so the widget works immediately
  * without running the full ETL pipeline.
+ *
+ * A dev customer and API key already exist from migration 009.
+ * Default dev key: pk_dev_bogota2026
  *
  * Usage: npx tsx src/db/seed.ts
  */
@@ -11,13 +14,6 @@ import { config } from 'dotenv';
 config();
 
 import { query, pool } from './connection.js';
-import { createHash } from 'crypto';
-
-const DEV_API_KEY = 'dev-bogota-insights-2026';
-
-function hashApiKey(key: string): string {
-  return createHash('sha256').update(key).digest('hex');
-}
 
 interface SeedPoi {
   source: string;
@@ -75,27 +71,20 @@ async function seed(): Promise<void> {
   console.log('🌱 Seeding development data...\n');
 
   try {
-    // 1. Ensure dev customer exists
-    const customerResult = await query(
-      `INSERT INTO customers (name, slug, tier, is_active)
-       VALUES ('Dev User', 'dev', 'enterprise', TRUE)
-       ON CONFLICT (slug) DO UPDATE SET is_active = TRUE
-       RETURNING id`,
+    // 1. Verify dev API key exists (from migration 009)
+    const keyResult = await query(
+      `SELECT ak.id, ak.customer_id, c.name 
+       FROM api_keys ak
+       JOIN customers c ON c.id = ak.customer_id
+       WHERE ak.key_hash = '00acc2fde4649de4a5017c74cb893bf03581e9160dae24ac90a6b8e9dbee29af'`
     );
-    const customerId = customerResult.rows[0].id;
-    console.log(`  ✅ Customer: dev (id: ${customerId})`);
+    if (keyResult.rows.length === 0) {
+      console.warn('  ⚠️  Dev API key not found. Migration 009 may not have run.');
+    } else {
+      console.log(`  ✅ Dev API key found: pk_dev_bogota2026 (${keyResult.rows[0].name})`);
+    }
 
-    // 2. Ensure dev API key exists
-    const keyHash = hashApiKey(DEV_API_KEY);
-    await query(
-      `INSERT INTO api_keys (customer_id, key_hash, name, is_active, rate_limit_per_minute, rate_limit_per_day)
-       VALUES ($1, $2, 'Development Key', TRUE, 1000, 100000)
-       ON CONFLICT DO NOTHING`,
-      [customerId, keyHash],
-    );
-    console.log(`  ✅ API Key: ${DEV_API_KEY}`);
-
-    // 3. Seed POIs
+    // 2. Seed POIs
     let inserted = 0;
     let skipped = 0;
     for (const poi of SAMPLE_POIS) {
@@ -139,8 +128,8 @@ async function seed(): Promise<void> {
     console.log(`  ✅ POIs: ${inserted} inserted/updated, ${skipped} skipped`);
 
     console.log('\n🎉 Seed complete!');
-    console.log(`   API Key: ${DEV_API_KEY}`);
-    console.log(`   Use: curl http://localhost:3000/v1/insights?lat=4.67&lng=-74.055 -H "X-API-Key: ${DEV_API_KEY}"`);
+    console.log(`   API Key: pk_dev_bogota2026`);
+    console.log(`   Use: curl http://localhost:3000/v1/insights?lat=4.67&lng=-74.055 -H "X-API-Key: pk_dev_bogota2026"`);
   } catch (err) {
     console.error('\n❌ Seed failed:', (err as Error).message);
     process.exit(1);
