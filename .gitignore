@@ -50,6 +50,8 @@ temp/
 packages/api/data/*.geojson
 packages/api/data/*.txt
 packages/api/data/*.csv
+# Generated survey outputs
+packages/api/data/survey*.json
 
 # pnpm debug log
 pnpm-debug.log*
