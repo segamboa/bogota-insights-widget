@@ -51,5 +51,5 @@ packages/api/data/*.geojson
 packages/api/data/*.txt
 packages/api/data/*.csv
 
-# pnpm lock
-pnpm-lock.yaml
+# pnpm debug log
+pnpm-debug.log*
