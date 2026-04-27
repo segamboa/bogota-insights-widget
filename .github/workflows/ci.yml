@@ -25,8 +25,10 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Lint
-        run: pnpm lint
+      # Lint step disabled — eslint is not installed in any workspace package.
+      # TODO: Set up eslint with @typescript-eslint and re-enable.
+      # - name: Lint
+      #   run: pnpm lint
 
       - name: Type check
         run: pnpm run -r build --dry-run=false
