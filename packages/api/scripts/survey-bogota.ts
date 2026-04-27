@@ -17,7 +17,7 @@ config();
 import { writeFileSync } from 'fs';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
-import { pool } from '../src/db/connection.js';
+import { pool, query } from '../src/db/connection.js';
 import { findPoisWithinRadius } from '../src/db/queries.js';
 import { computeCategoryScore, computeOverallScore } from '../src/services/scoring.js';
 import type { CategoryType } from '@bogota-insights/shared';
@@ -33,6 +33,10 @@ const BOUNDS = {
   west: -74.25,
   east: -73.92,
 };
+
+interface BoundaryPolygon {
+  geometry: string;
+}
 
 interface SurveyResult {
   lat: number;
@@ -78,6 +82,27 @@ function generateGrid(step: number): Array<{ lat: number; lng: number }> {
     }
   }
   return points;
+}
+
+async function filterPointsByPoiDensity(
+  points: Array<{ lat: number; lng: number }>,
+  minPois: number = 10,
+  radiusM: number = 2000,
+): Promise<Array<{ lat: number; lng: number }>> {
+  // A point is considered "urban" if it has at least minPois canonical POIs
+  // within radiusM. This excludes rural edges, mountains, and reservoirs.
+  const result = await query(`
+    SELECT count
+    FROM UNNEST($1::float[], $2::float[]) AS t(lng, lat)
+    LEFT JOIN LATERAL (
+      SELECT COUNT(*)::int as count
+      FROM pois
+      WHERE is_canonical = TRUE
+        AND ST_DWithin(location, ST_MakePoint(t.lng, t.lat)::geography, $3)
+    ) poi_count ON true
+  `, [points.map((p) => p.lng), points.map((p) => p.lat), radiusM]);
+
+  return points.filter((_, i) => (result.rows[i]?.count ?? 0) >= minPois);
 }
 
 function percentile(sorted: number[], p: number): number {
@@ -200,18 +225,22 @@ async function main() {
 
   console.log(`=== Bogotá Insights Survey ===`);
   console.log(`Grid step: ${step}° (~${Math.round(step * 111)} km lat)`);
-  console.log(`Total grid points: ${points.length}`);
+  console.log(`Initial grid points: ${points.length}`);
+
+  const filteredPoints = await filterPointsByPoiDensity(points, 10, 2000);
+  console.log(`After urban density filter (≥10 POIs in 2km): ${filteredPoints.length}`);
+
   console.log(`Radius: ${radiusM}m\n`);
 
   const results: SurveyResult[] = [];
   let processed = 0;
 
-  for (const { lat, lng } of points) {
+  for (const { lat, lng } of filteredPoints) {
     const result = await computeForPoint(lat, lng, radiusM);
     if (result) results.push(result);
     processed++;
-    if (processed % 10 === 0 || processed === points.length) {
-      process.stdout.write(`\r  Progress: ${processed}/${points.length}`);
+    if (processed % 10 === 0 || processed === filteredPoints.length) {
+      process.stdout.write(`\r  Progress: ${processed}/${filteredPoints.length}`);
     }
   }
   console.log('\n');
