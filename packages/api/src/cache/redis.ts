@@ -51,6 +51,18 @@ export async function deleteCache(key: string): Promise<void> {
   }
 }
 
+export async function flushInsightsCache(): Promise<number> {
+  try {
+    const keys = await redis.keys('insights:*');
+    if (keys.length === 0) return 0;
+    await redis.del(...keys);
+    return keys.length;
+  } catch (err) {
+    console.error('Redis flush insights error:', err);
+    return 0;
+  }
+}
+
 export async function healthCheck(): Promise<boolean> {
   try {
     const pong = await redis.ping();

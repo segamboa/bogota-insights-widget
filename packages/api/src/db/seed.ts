@@ -14,6 +14,7 @@ import { config } from 'dotenv';
 config();
 
 import { query, pool } from './connection.js';
+import { flushInsightsCache } from '../cache/redis.js';
 
 interface SeedPoi {
   source: string;
@@ -126,6 +127,14 @@ async function seed(): Promise<void> {
     }
 
     console.log(`  ✅ POIs: ${inserted} inserted/updated, ${skipped} skipped`);
+
+    // Flush cached insights so seed POIs are visible immediately
+    try {
+      const flushed = await flushInsightsCache();
+      console.log(`  🗑️  Flushed ${flushed} cached insight entries from Redis`);
+    } catch (err) {
+      console.warn(`  ⚠️  Could not flush insights cache: ${(err as Error).message}`);
+    }
 
     console.log('\n🎉 Seed complete!');
     console.log(`   API Key: pk_dev_bogota2026`);

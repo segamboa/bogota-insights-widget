@@ -12,6 +12,7 @@ import { ingestAllIdecaDatasets } from './ideca-ingest.js';
 import { ingestTransmilenioStops } from './transmilenio-ingest.js';
 import { ingestAllOsmDatasets } from './osm-ingest.js';
 import { getPoiCountsBySource } from '../db/queries.js';
+import { flushInsightsCache } from '../cache/redis.js';
 
 async function main() {
   const args = process.argv.slice(2);
@@ -68,6 +69,14 @@ async function main() {
     console.log(`  TOTAL: ${total} canonical POIs`);
   } catch (err) {
     console.error('Could not fetch POI summary:', err);
+  }
+
+  // Invalidate cached insights so new POIs are visible immediately
+  try {
+    const flushed = await flushInsightsCache();
+    console.log(`\nFlushed ${flushed} cached insight entries from Redis`);
+  } catch (err) {
+    console.error('Could not flush insights cache:', err);
   }
 
   await pool.end();
