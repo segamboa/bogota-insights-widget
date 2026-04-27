@@ -14,6 +14,7 @@ import { config } from 'dotenv';
 config();
 
 import { query, pool } from './connection.js';
+import { clearInsightsCache } from './queries.js';
 import { flushInsightsCache } from '../cache/redis.js';
 
 interface SeedPoi {
@@ -134,6 +135,13 @@ async function seed(): Promise<void> {
       console.log(`  🗑️  Flushed ${flushed} cached insight entries from Redis`);
     } catch (err) {
       console.warn(`  ⚠️  Could not flush insights cache: ${(err as Error).message}`);
+    }
+
+    try {
+      await clearInsightsCache();
+      console.log('  🗑️  Cleared PostgreSQL insights_cache table');
+    } catch (err) {
+      console.warn(`  ⚠️  Could not clear PostgreSQL insights cache: ${(err as Error).message}`);
     }
 
     console.log('\n🎉 Seed complete!');

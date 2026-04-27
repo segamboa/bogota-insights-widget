@@ -85,3 +85,60 @@ export function getScoreLabel(score: number, lang: Lang = 'es'): string {
   if (score < 80) return t('score.good', lang);
   return t('score.excellent', lang);
 }
+
+const subcategoryTranslations: Record<string, string> = {
+  // Transport
+  bus_station: 'Estación de bus',
+  bus_stop: 'Parada de bus',
+  parada_sitp: 'Parada SITP',
+  bicycle_rental: 'Cicloruta',
+  // Commerce
+  restaurante: 'Restaurante',
+  cafe: 'Café',
+  bank: 'Banco',
+  banco: 'Banco',
+  supermarket: 'Supermercado',
+  supermercado: 'Supermercado',
+  tienda: 'Tienda',
+  centro_comercial: 'Centro comercial',
+  mall: 'Centro comercial',
+  commerce: 'Comercio',
+  // Education
+  school: 'Colegio',
+  colegio: 'Colegio',
+  university: 'Universidad',
+  universidad: 'Universidad',
+  kindergarten: 'Jardín infantil',
+  jardin: 'Jardín infantil',
+  library: 'Biblioteca',
+  // Health
+  hospital: 'Hospital',
+  clinica: 'Clínica',
+  clinic: 'Clínica',
+  doctors: 'Médico',
+  medico: 'Médico',
+  pharmacy: 'Farmacia',
+  farmacia: 'Farmacia',
+  // Recreation
+  park: 'Parque',
+  playground: 'Parque infantil',
+  sports_centre: 'Centro deportivo',
+  cinema: 'Cine',
+  theatre: 'Teatro',
+  museum: 'Museo',
+  gallery: 'Galería',
+  attraction: 'Atracción turística',
+  monument: 'Monumento',
+  historic_site: 'Sitio histórico',
+  arts_centre: 'Centro de artes',
+  culture: 'Cultura',
+};
+
+export function getSubcategoryLabel(subtype: string, lang: Lang = 'es'): string {
+  if (lang === 'es' && subcategoryTranslations[subtype]) {
+    return subcategoryTranslations[subtype];
+  }
+  return subtype
+    .replace(/_/g, ' ')
+    .replace(/\b\w/g, (c) => c.toUpperCase());
+}

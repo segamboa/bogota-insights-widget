@@ -1,6 +1,6 @@
 import { h } from 'preact';
 import type { CategoryType, CategoryScore, POI } from '@bogota-insights/shared';
-import { getCategoryLabel, t } from '../utils/i18n';
+import { getCategoryLabel, getSubcategoryLabel, t } from '../utils/i18n';
 import { getScoreColor, formatDistance } from '../utils/scores';
 
 interface CategoryCardProps {
@@ -75,7 +75,7 @@ export function CategoryCard({ category, data, expanded, onToggle, lang, radius 
               <div class="bi-counts-list">
                 {(Object.entries(data.counts) as [string, number][]).map(([subtype, count]) => (
                   <div class="bi-count-row" key={subtype}>
-                    <span class="bi-count-label">{formatSubtype(subtype)}</span>
+                    <span class="bi-count-label">{getSubcategoryLabel(subtype, lang)}</span>
                     <BarIndicator count={count} maxCount={maxCount} />
                     <span class="bi-count-value">
                       {count} {t('category.nearby', lang)}
@@ -106,11 +106,7 @@ export function CategoryCard({ category, data, expanded, onToggle, lang, radius 
   );
 }
 
-function formatSubtype(subtype: string): string {
-  return subtype
-    .replace(/_/g, ' ')
-    .replace(/\b\w/g, (c) => c.toUpperCase());
-}
+
 
 function getSourceLabels(pois: POI[], lang: 'es' | 'en'): string {
   const sources = new Set(pois.map((p) => p.source));

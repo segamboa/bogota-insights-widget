@@ -11,7 +11,7 @@ import { runMigrations } from '../db/migrate.js';
 import { ingestAllIdecaDatasets } from './ideca-ingest.js';
 import { ingestTransmilenioStops } from './transmilenio-ingest.js';
 import { ingestAllOsmDatasets } from './osm-ingest.js';
-import { getPoiCountsBySource } from '../db/queries.js';
+import { getPoiCountsBySource, clearInsightsCache } from '../db/queries.js';
 import { flushInsightsCache } from '../cache/redis.js';
 
 async function main() {
@@ -77,6 +77,13 @@ async function main() {
     console.log(`\nFlushed ${flushed} cached insight entries from Redis`);
   } catch (err) {
     console.error('Could not flush insights cache:', err);
+  }
+
+  try {
+    await clearInsightsCache();
+    console.log('Cleared PostgreSQL insights_cache table');
+  } catch (err) {
+    console.error('Could not clear PostgreSQL insights cache:', err);
   }
 
   await pool.end();

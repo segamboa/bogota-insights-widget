@@ -210,6 +210,48 @@ out center tags;`,
       return Math.min(100, score);
     },
   },
+  {
+    name: 'Museums and Cultural Attractions',
+    category: 'recreation',
+    sourceDataset: 'osm-museums-attractions',
+    localFile: 'osm-museums-attractions.json',
+    overpassQuery: `[out:json][timeout:60];
+(
+  node["tourism"="museum"](${OVERPASS_BBOX});
+  way["tourism"="museum"](${OVERPASS_BBOX});
+  node["tourism"="gallery"](${OVERPASS_BBOX});
+  way["tourism"="gallery"](${OVERPASS_BBOX});
+  node["tourism"="attraction"](${OVERPASS_BBOX});
+  way["tourism"="attraction"](${OVERPASS_BBOX});
+  node["historic"="monument"](${OVERPASS_BBOX});
+  way["historic"="monument"](${OVERPASS_BBOX});
+  node["historic"="building"](${OVERPASS_BBOX});
+  way["historic"="building"](${OVERPASS_BBOX});
+  node["amenity"="arts_centre"](${OVERPASS_BBOX});
+  way["amenity"="arts_centre"](${OVERPASS_BBOX});
+);
+out center tags;`,
+    getSubcategory: (tags) => {
+      if (tags.tourism === 'museum') return 'museum';
+      if (tags.tourism === 'gallery') return 'gallery';
+      if (tags.tourism === 'attraction') return 'attraction';
+      if (tags.historic === 'monument') return 'monument';
+      if (tags.historic === 'building') return 'historic_site';
+      if (tags.amenity === 'arts_centre') return 'arts_centre';
+      return 'culture';
+    },
+    getName: (tags) => tags.name || tags['name:es'] || null,
+    getAddress: (tags) => tags['addr:street']
+      ? `${tags['addr:street']}${tags['addr:housenumber'] ? ' ' + tags['addr:housenumber'] : ''}`
+      : null,
+    getConfidence: (tags) => {
+      let score = 75;
+      if (tags.name) score += 15;
+      if (tags['addr:street']) score += 5;
+      if (tags.website) score += 5;
+      return Math.min(100, score);
+    },
+  },
 ];
 
 /**
@@ -287,7 +329,7 @@ function sanitizeTags(tags: Record<string, string>): Record<string, string> {
     'addr:street', 'addr:housenumber', 'addr:city',
     'opening_hours', 'phone', 'website', 'ref',
     'wheelchair', 'building', 'cuisine', 'atm',
-    'route_ref', 'shelter',
+    'route_ref', 'shelter', 'tourism', 'historic',
   ]);
 
   const sanitized: Record<string, string> = {};

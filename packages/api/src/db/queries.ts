@@ -271,3 +271,11 @@ export async function getPoiCountsBySource(): Promise<Record<string, number>> {
   }
   return counts;
 }
+
+/**
+ * Clear all cached insights from PostgreSQL.
+ * Call after ETL ingestion to prevent stale cached scores.
+ */
+export async function clearInsightsCache(): Promise<void> {
+  await query(`TRUNCATE TABLE insights_cache`);
+}

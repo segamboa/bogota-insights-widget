@@ -1,0 +1,2502 @@
+{
+  "version": 0.6,
+  "generator": "Overpass API 0.7.62.11 87bfad18",
+  "osm3s": {
+    "timestamp_osm_base": "2026-04-27T14:51:02Z",
+    "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL."
+  },
+  "elements": [
+    {
+      "type": "node",
+      "id": 266045580,
+      "lat": 4.5968372,
+      "lon": -74.0774643,
+      "tags": {
+        "name": "Museo Iglesia Santa Clara",
+        "tourism": "museum",
+        "wheelchair": "limited",
+        "wikidata": "Q5911533",
+        "wikimedia_commons": "Category:Iglesia de Santa Clara, Bogotá",
+        "wikipedia": "es:Museo Iglesia de Santa Clara"
+      }
+    },
+    {
+      "type": "node",
+      "id": 333749813,
+      "lat": 4.5976953,
+      "lon": -74.078472,
+      "tags": {
+        "name": "Museo Histórico Policia",
+        "opening_hours": "Tu-Su 08:00-17:00",
+        "tourism": "museum"
+      }
+    },
+    {
+      "type": "node",
+      "id": 343122528,
+      "lat": 4.6179891,
+      "lon": -74.0606563,
+      "tags": {
+        "ele": "2775.911621",
+        "historic": "monument",
+        "name": "Monumento al Silencio"
+      }
+    },
+    {
+      "type": "node",
+      "id": 535590276,
+      "lat": 4.6306774,
+      "lon": -74.0929334,
+      "tags": {
+        "historic": "monument",
+        "name": "Jaime Garzón"
+      }
+    },
+    {
+      "type": "node",
+      "id": 654584598,
+      "lat": 4.591549,
+      "lon": -74.0709565,
+      "tags": {
+        "amenity": "arts_centre",
+        "name": "Fundarte - CP/cultural fonudation - NGO"
+      }
+    },
+    {
+      "type": "node",
+      "id": 703340011,
+      "lat": 4.5752797,
+      "lon": -74.2938047,
+      "tags": {
+        "height": "150",
+        "name": "Salto de Tequendama",
+        "tourism": "attraction",
+        "waterway": "waterfall",
+        "wikidata": "Q490295",
+        "wikipedia": "es:Salto del Tequendama"
+      }
+    },
+    {
+      "type": "node",
+      "id": 729413391,
+      "lat": 4.5974782,
+      "lon": -74.0703092,
+      "tags": {
+        "addr:housenumber": "2-58",
+        "addr:street": "Calle 12B",
+        "name": "Instituto Distrital de Patrimonio Cultural",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "type": "node",
+      "id": 731644658,
+      "lat": 4.5962128,
+      "lon": -74.0728575,
+      "tags": {
+        "name": "Museo de Bogotá",
+        "opening_hours": "Mo-Fr 09:00-18:00; Sa-Su 10:00-17:00",
+        "tourism": "museum",
+        "wheelchair": "no"
+      }
+    },
+    {
+      "type": "node",
+      "id": 733298563,
+      "lat": 4.597038,
+      "lon": -74.0751848,
+      "tags": {
+        "addr:city": "Bogotá D.C.",
+        "addr:street": "Calle 10 # 6 - 26",
+        "email": "res.museotrajes@uamerica.edu.co",
+        "name": "Museo de Trajes",
+        "opening_hours": "Mo-Sa 09:00-16:00",
+        "operator": "Universidad de América",
+        "operator:type": "private",
+        "phone": "(1) 2826531",
+        "start_date": "1972",
+        "tourism": "museum",
+        "website": "https://museodetrajes.com.co/"
+      }
+    },
+    {
+      "type": "node",
+      "id": 733299423,
+      "lat": 4.5970452,
+      "lon": -74.0750749,
+      "tags": {
+        "name": "Casa Manuelita Saenz",
+        "tourism": "museum"
+      }
+    },
+    {
+      "type": "node",
+      "id": 735987202,
+      "lat": 4.5981796,
+      "lon": -74.0775028,
+      "tags": {
+        "name": "Academia Colombiana de la Historia y Geografia",
+        "tourism": "attraction",
+        "wheelchair": "no"
+      }
+    },
+    {
+      "type": "node",
+      "id": 735987665,
+      "lat": 4.5978104,
+      "lon": -74.077599,
+      "tags": {
+        "name": "Museo de Desarrollo Urbano",
+        "tourism": "museum",
+        "wheelchair": "no"
+      }
+    },
+    {
+      "type": "node",
+      "id": 760436328,
+      "lat": 4.5609121,
+      "lon": -74.0010997,
+      "tags": {
+        "charge": "12000 COP",
+        "fee": "yes",
+        "name": "Parque Ecológico Mataredonda",
+        "opening_hours": "Mo-Su 08:00-16:00",
+        "phone": "+573178657320",
+        "tourism": "attraction",
+        "zoo": "wildlife_park"
+      }
+    },
+    {
+      "type": "node",
+      "id": 802974469,
+      "lat": 4.6431359,
+      "lon": -74.1005493,
+      "tags": {
+        "historic": "monument",
+        "name": "Obelisco Virgilo Barco"
+      }
+    },
+    {
+      "type": "node",
+      "id": 898094283,
+      "lat": 4.605083,
+      "lon": -74.0675822,
+      "tags": {
+        "tourism": "museum"
+      }
+    },
+    {
+      "type": "node",
+      "id": 898138819,
+      "lat": 4.6084204,
+      "lon": -74.0698759,
+      "tags": {
+        "tourism": "museum"
+      }
+    },
+    {
+      "type": "node",
+      "id": 898139594,
+      "lat": 4.6093615,
+      "lon": -74.0693823,
+      "tags": {
+        "tourism": "museum"
+      }
+    },
+    {
+      "type": "node",
+      "id": 898139975,
+      "lat": 4.6096716,
+      "lon": -74.070069,
+      "tags": {
+        "tourism": "museum"
+      }
+    },
+    {
+      "type": "node",
+      "id": 898141207,
+      "lat": 4.6096693,
+      "lon": -74.0685857,
+      "tags": {
+        "tourism": "museum"
+      }
+    },
+    {
+      "type": "node",
+      "id": 898142228,
+      "lat": 4.6070836,
+      "lon": -74.0675481,
+      "tags": {
+        "addr:city": "Bogotá",
+        "addr:country": "CO",
+        "addr:housenumber": "22-61",
+        "addr:street": "Carrera 4",
+        "description": "Creado en 1969 por la facultad de Ciencias del Mar de la Universidad de Bogotá Jorge Tadeo Lozano, el Museo del Mar exhibe los montajes museográficos con especies disecadas, esqueletos y fósiles que están organizados por secciones que ilustran temas diver",
+        "email": "museo.mar@utadeo.edu.co",
+        "fee": "yes",
+        "level": "-1",
+        "museum": "science",
+        "name": "Museo del Mar Utadeo",
+        "opening_hours": "Mo-Fr 09:00-13:00,14:00-17:00; Sa 09:00-12:30",
+        "operator": "Universidad de Bogota Jorge Tadeo Lozano",
+        "operator:type": "university",
+        "phone": "+57 601 2427030 Ext: 7140",
+        "tourism": "museum",
+        "website": "https://www.utadeo.edu.co/es/espacios-fisicos/museos/museo-del-mar"
+      }
+    },
+    {
+      "type": "node",
+      "id": 1168748857,
+      "lat": 4.6029156,
+      "lon": -74.0721058,
+      "tags": {
+        "name": "Galeria Artesanal de la 16",
+        "tourism": "gallery"
+      }
+    },
+    {
+      "type": "node",
+      "id": 1230756780,
+      "lat": 4.6802088,
+      "lon": -74.1653375,
+      "tags": {
+        "addr:full": "CALLE 14 B No. 119 A - 71",
+        "amenity": "arts_centre",
+        "name": "Salón Comunal Fontibón Reservado",
+        "puesto_votacion": "PRADERAS II",
+        "source": "Registraduría 2010"
+      }
+    },
+    {
+      "type": "node",
+      "id": 1469266905,
+      "lat": 4.6955865,
+      "lon": -74.0633085,
+      "tags": {
+        "amenity": "arts_centre",
+        "name": "arts"
+      }
+    },
+    {
+      "type": "node",
+      "id": 1853729500,
+      "lat": 4.8077783,
+      "lon": -74.1170655,
+      "tags": {
+        "name": "Bioparque La Reserva",
+        "opening_hours": "09:00-17:00",
+        "tourism": "attraction",
+        "url": "http://www.bioparquelareserva.com/"
+      }
+    },
+    {
+      "type": "node",
+      "id": 1975897576,
+      "lat": 4.5959104,
+      "lon": -74.0733438,
+      "tags": {
+        "addr:city": "Calle 10 # 5 22",
+        "historic": "monument",
+        "name": "Fundación Rafael Pombo",
+        "source": "survey"
+      }
+    },
+    {
+      "type": "node",
+      "id": 2019253894,
+      "lat": 4.6338356,
+      "lon": -74.0848053,
+      "tags": {
+        "building": "university",
+        "fee": "no",
+        "name": "Laboratorio de Etnografía",
+        "tourism": "museum"
+      }
+    },
+    {
+      "type": "node",
+      "id": 2019253895,
+      "lat": 4.6390495,
+      "lon": -74.0872219,
+      "tags": {
+        "name": "Museo de la Ciencia y el Juego",
+        "opening_hours": "Mo-Fr 08:00-17:00",
+        "tourism": "museum"
+      }
+    },
+    {
+      "type": "node",
+      "id": 2019253896,
+      "lat": 4.6360581,
+      "lon": -74.0843832,
+      "tags": {
+        "alt_name": "Museo Andrés Soriano Lleras",
+        "building": "university",
+        "name": "Museo Centro de la Historia de la Medicina",
+        "tourism": "museum"
+      }
+    },
+    {
+      "type": "node",
+      "id": 2019253897,
+      "lat": 4.6358229,
+      "lon": -74.0879095,
+      "tags": {
+        "name": "Museo Entomologico",
+        "tourism": "museum"
+      }
+    },
+    {
+      "type": "node",
+      "id": 2019253898,
+      "lat": 4.6423612,
+      "lon": -74.081759,
+      "tags": {
+        "building": "university",
+        "charge": "6700 COP",
+        "fee": "yes",
+        "museum": "nature",
+        "name": "Museo de Historia Natural",
+        "name:en": "Museum of natural history",
+        "name:fr": "Musée d'histoire naturelle",
+        "opening_hours": "Mo-Fr 08:00-12:00,13:00-17:00; Sa 09:00-12:00",
+        "tourism": "museum"
+      }
+    },
+    {
+      "type": "node",
+      "id": 2118756623,
+      "lat": 4.6264146,
+      "lon": -74.0792449,
+      "tags": {
+        "addr:city": "Transversal 29 # 37 38",
+        "addr:street": "Carrera 29",
+        "amenity": "arts_centre",
+        "name": "Iré Aikú",
+        "school": "art;dance",
+        "source": "Kaart Ground Survey 2017"
+      }
+    },
+    {
+      "type": "node",
+      "id": 2693093835,
+      "lat": 4.6422919,
+      "lon": -74.0737601,
+      "tags": {
+        "addr:city": "Bogotá D.C.",
+        "addr:street": "Carrera 24",
+        "name": "CreArte",
+        "source": "Kaart Ground Survey 2017",
+        "tourism": "museum"
+      }
+    },
+    {
+      "type": "node",
+      "id": 3500005810,
+      "lat": 4.6440923,
+      "lon": -74.0563207,
+      "tags": {
+        "name": "Entrada Sendero Las Delicias",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "type": "node",
+      "id": 3638090405,
+      "lat": 4.6018403,
+      "lon": -74.0718526,
+      "tags": {
+        "addr:postcode": "11001",
+        "contact:facebook": "MuseoDelOroBanRep",
+        "contact:instagram": "museodeloro",
+        "email": "wmuseo@banrep.gov.co",
+        "fee": "yes",
+        "museum": "archaeological;ceramics;history",
+        "name": "Museo del Oro",
+        "name:en": "Gold Museum",
+        "name:fr": "Le musée de l'or",
+        "name:ko": "황금박물관",
+        "opening_hours": "Tu-Sa 09:00-19:00; Su 10:00-17:00",
+        "toilets": "yes",
+        "tourism": "museum",
+        "website": "https://www.banrepcultural.org/bogota/museo-del-oro",
+        "wheelchair": "yes",
+        "wikidata": "Q1109031",
+        "wikimedia_commons": "Category:Museo del Oro, Bogotá",
+        "wikipedia": "es:Museo del Oro"
+      }
+    },
+    {
+      "type": "node",
+      "id": 3649305705,
+      "lat": 4.6038734,
+      "lon": -74.0553324,
+      "tags": {
+        "name": "Petroglifo Quimbaya",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "type": "node",
+      "id": 3649508137,
+      "lat": 4.6052221,
+      "lon": -74.0554677,
+      "tags": {
+        "contact:facebook": "CerrodeMonserrate",
+        "contact:instagram": "cerromonserrate",
+        "contact:linkedin": "https://co.linkedin.com/company/telef%C3%A9rico-a-monserrate",
+        "contact:phone": "+57 601 7470190",
+        "contact:tripadvisor": "https://www.tripadvisor.co/Attraction_Review-g294074-d552767-Reviews-Mount_Monserrate-Bogota.html",
+        "email": "info@monserrate.co",
+        "name": "Cerro de Monserrate",
+        "opening_hours": "08:30-12:30,15:30-20:00",
+        "place": "hamlet",
+        "tourism": "attraction",
+        "website": "https://monserrate.co/",
+        "wheelchair": "yes",
+        "wikidata": "Q152073",
+        "wikimedia_commons": "Category:Monserrate",
+        "wikipedia": "es:Monserrate"
+      }
+    },
+    {
+      "type": "node",
+      "id": 3750893461,
+      "lat": 4.5941452,
+      "lon": -74.1390805,
+      "tags": {
+        "addr:city": "Bogotá D.C.",
+        "addr:housenumber": "94",
+        "amenity": "arts_centre",
+        "level": "2",
+        "name": "Platino Real"
+      }
+    },
+    {
+      "type": "node",
+      "id": 4117023379,
+      "lat": 4.5953781,
+      "lon": -74.0728977,
+      "tags": {
+        "addr:housenumber": "3-61",
+        "addr:street": "Calle 10",
+        "contact:instagram": "patrimoniobta",
+        "name": "Museo de Bogotá",
+        "name:es": "Museo de Bogotá - casa de siete balcones",
+        "opening_hours": "Tu-Fr 09:00-17:00; Sa-Su 10:00-17:00",
+        "phone": "+57 601 2820488",
+        "tourism": "museum"
+      }
+    },
+    {
+      "type": "node",
+      "id": 4357527893,
+      "lat": 4.794554,
+      "lon": -73.9087453,
+      "tags": {
+        "email": "encenillo@natura.org.co",
+        "name": "Reserva Biológica Encenillo - Fundación Natura",
+        "phone": "+57 1 2455700",
+        "tourism": "attraction",
+        "website": "https://www.natura.org.co/"
+      }
+    },
+    {
+      "type": "node",
+      "id": 4442331442,
+      "lat": 4.8061278,
+      "lon": -74.0326225,
+      "tags": {
+        "attraction": "amusement_ride",
+        "description": "Cama inflable del tamaño de una cancha de voleibol para grandes y chicos",
+        "name": "La Nube",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "type": "node",
+      "id": 4442352075,
+      "lat": 4.8062006,
+      "lon": -74.0361309,
+      "tags": {
+        "attraction": "amusement_ride",
+        "description": "Pista de karts para niños y adultos",
+        "name": "Karts",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "type": "node",
+      "id": 4442352076,
+      "lat": 4.806532,
+      "lon": -74.0366673,
+      "tags": {
+        "attraction": "amusement_ride",
+        "description": "Montaña rusa, Twist & Shout, Jumping, Saltarín, Carrusel, Sillas Voladoras, Aeronaves, Ponys, Llamas y Mini Fórmulas",
+        "name": "Ciudad Mecánica",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "type": "node",
+      "id": 4442352077,
+      "lat": 4.8064037,
+      "lon": -74.0342211,
+      "tags": {
+        "attraction": "amusement_ride",
+        "description": "Botes inflables a motor para adultos y niños",
+        "name": "Súper Botes",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "type": "node",
+      "id": 4442352079,
+      "lat": 4.8059761,
+      "lon": -74.032762,
+      "tags": {
+        "attraction": "amusement_ride",
+        "description": "Muro de Escalar de dificultad baja para niños y adultos",
+        "name": "Muro de Escalar",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "type": "node",
+      "id": 4591352190,
+      "lat": 4.7225786,
+      "lon": -74.2293083,
+      "tags": {
+        "historic": "monument",
+        "name": "Virgen El Poblado",
+        "name:es": "Virgen El Poblado"
+      }
+    },
+    {
+      "type": "node",
+      "id": 4621598795,
+      "lat": 4.8395117,
+      "lon": -74.2582455,
+      "tags": {
+        "historic": "monument",
+        "name": "Vagones",
+        "name:es": "Vagones"
+      }
+    },
+    {
+      "type": "node",
+      "id": 4676705090,
+      "lat": 4.6007735,
+      "lon": -74.0589521,
+      "tags": {
+        "name": "Molino El Boqueron",
+        "name:es": "Molino El Boqueron",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "type": "node",
+      "id": 4700094089,
+      "lat": 4.6024902,
+      "lon": -74.0724189,
+      "tags": {
+        "addr:housenumber": "6-66 piso 23",
+        "addr:postcode": "11001",
+        "addr:street": "Calle 16",
+        "contact:facebook": "MuseoInternacionalDeLaEsmeralda",
+        "contact:instagram": "MuseoInternacionalEsmeralda",
+        "contact:twitter": "QodeInteractive",
+        "email": "info@museodelaesmeralda.com.co",
+        "internet_access": "wlan",
+        "name": "Museo Internacional de la Esmeralda",
+        "name:en": "International Emerald Museum",
+        "name:es": "Museo de la esmeralda",
+        "name:fr": "Musée de l'émeraude",
+        "opening_hours": "Mo-Sa 09:00-17:00",
+        "phone": "+5717459707;+573168321180",
+        "tourism": "museum",
+        "website": "https://www.museodelaesmeralda.com.co"
+      }
+    },
+    {
+      "type": "node",
+      "id": 4713992492,
+      "lat": 4.6020881,
+      "lon": -74.0782124,
+      "tags": {
+        "historic": "monument",
+        "name": "Monumento de la Mariposa",
+        "name:es": "Monumento de la Mariposa"
+      }
+    },
+    {
+      "type": "node",
+      "id": 4764183622,
+      "lat": 4.6350106,
+      "lon": -74.0710335,
+      "tags": {
+        "addr:housenumber": "45D-61",
+        "addr:postcode": "11001",
+        "addr:street": "Transversal 17",
+        "contact:facebook": "casatinta.bogota",
+        "contact:instagram": "casatinta.bogota",
+        "contact:twitter": "casatinta",
+        "email": "galeria@casatinta.com",
+        "name": "CasaTinta",
+        "name:en": "CasaTinta",
+        "name:es": "CasaTinta",
+        "opening_hours": "Tu-Fr 14:00-18:00; Sa 10:00-17:30",
+        "phone": "+57 1 304 8027",
+        "tourism": "museum",
+        "website": "https://www.casatinta.com/"
+      }
+    },
+    {
+      "type": "node",
+      "id": 4833521621,
+      "lat": 4.6011345,
+      "lon": -74.0591017,
+      "tags": {
+        "addr:street": "Carrera 1",
+        "name": "Sendero Quebrada San Francisco",
+        "name:en": "Path Quebrada San Francisco",
+        "opening_hours": "Sa-Su 06:00-10:00",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "type": "node",
+      "id": 4833537023,
+      "lat": 4.5827362,
+      "lon": -73.9509971,
+      "tags": {
+        "addr:street": "Vía La Chorrera",
+        "name": "Parque aventura la chorrera",
+        "name:en": "Adventure park la chorrera",
+        "name:es": "Parque aventura la chorrera",
+        "opening_hours": "Mo-Su 06:00-17:00",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "type": "node",
+      "id": 4890098422,
+      "lat": 4.5973412,
+      "lon": -73.9623129,
+      "tags": {
+        "name": "Cueva de los monos",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "type": "node",
+      "id": 4909676722,
+      "lat": 4.6592358,
+      "lon": -74.0465856,
+      "tags": {
+        "name": "Entrada de Horizontes-Las Moyas",
+        "name:es": "Entrada de Horizontes-Las Moyas",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "type": "node",
+      "id": 5065218121,
+      "lat": 4.5439173,
+      "lon": -74.0949175,
+      "tags": {
+        "name": "Piedra gigante",
+        "name:es": "Piedra gigante",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "type": "node",
+      "id": 5161989418,
+      "lat": 4.680672,
+      "lon": -74.061323,
+      "tags": {
+        "addr:street": "Calle 93",
+        "amenity": "arts_centre",
+        "name": "Centro Cultural Colombo",
+        "source": "Kaart Ground Survey 2017"
+      }
+    },
+    {
+      "type": "node",
+      "id": 5218767978,
+      "lat": 4.6678417,
+      "lon": -74.0564968,
+      "tags": {
+        "addr:housenumber": "82-35",
+        "addr:street": "Avenida Carrera 15",
+        "fee": "no",
+        "name": "Geba Art Gallery",
+        "source": "Kaart Ground Survey 2017",
+        "tourism": "gallery"
+      }
+    },
+    {
+      "type": "node",
+      "id": 5454468721,
+      "lat": 4.4056916,
+      "lon": -73.9562744,
+      "tags": {
+        "historic": "monument",
+        "name": "Virgen de Monruta",
+        "name:en": "Virgin of Monruta"
+      }
+    },
+    {
+      "type": "node",
+      "id": 5471864022,
+      "lat": 4.7081802,
+      "lon": -74.109852,
+      "tags": {
+        "name": "Mercado artesanal",
+        "name:en": "Artisinal Market",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "type": "node",
+      "id": 5503515821,
+      "lat": 4.5973831,
+      "lon": -74.0693285,
+      "tags": {
+        "fee": "yes",
+        "name": "La Bendita Chicheria",
+        "tourism": "museum"
+      }
+    },
+    {
+      "type": "node",
+      "id": 5552268421,
+      "lat": 4.6886435,
+      "lon": -74.2055959,
+      "tags": {
+        "historic": "monument",
+        "name": "Estación meteorológica IDEAM Tibaitata",
+        "name:en": "Weather station IDEAM Tibaitata"
+      }
+    },
+    {
+      "type": "node",
+      "id": 5640989724,
+      "lat": 4.6478762,
+      "lon": -73.9468775,
+      "tags": {
+        "name": "Donde Diego",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "type": "node",
+      "id": 5648240022,
+      "lat": 4.647862,
+      "lon": -73.9468563,
+      "tags": {
+        "name": "Reserva Natural Los Tapaculos",
+        "name:en": "Natural Reserve Los Tapaculos",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "type": "node",
+      "id": 5662140161,
+      "lat": 4.599128,
+      "lon": -74.0708901,
+      "tags": {
+        "amenity": "arts_centre",
+        "name": "Centro Cultural Leon Tolstoi"
+      }
+    },
+    {
+      "type": "node",
+      "id": 5868655894,
+      "lat": 4.6255945,
+      "lon": -74.0655842,
+      "tags": {
+        "historic": "monument"
+      }
+    },
+    {
+      "type": "node",
+      "id": 6138095486,
+      "lat": 4.6451788,
+      "lon": -74.1297054,
+      "tags": {
+        "addr:street": "Calle 12B",
+        "name": "Axa colpatria",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "type": "node",
+      "id": 6208781685,
+      "lat": 4.6071387,
+      "lon": -74.0721659,
+      "tags": {
+        "name": "Tejo",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "type": "node",
+      "id": 6322023395,
+      "lat": 4.4791037,
+      "lon": -74.258406,
+      "tags": {
+        "name": "El Túnel",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "type": "node",
+      "id": 6373223085,
+      "lat": 4.6477802,
+      "lon": -73.9469252,
+      "tags": {
+        "name": "Reserva Natural Los Tapaculos",
+        "name:en": "Los Tapaculos Natural Reserve",
+        "name:es": "Reserva Natural Los Tapaculos",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "type": "node",
+      "id": 6384482999,
+      "lat": 4.6529665,
+      "lon": -74.0671978,
+      "tags": {
+        "name": "Arte Contemporaneo",
+        "tourism": "gallery"
+      }
+    },
+    {
+      "type": "node",
+      "id": 6446632486,
+      "lat": 4.6072146,
+      "lon": -74.0723299,
+      "tags": {
+        "name:en": "free tejo",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "type": "node",
+      "id": 6600151697,
+      "lat": 4.5930319,
+      "lon": -74.1176426,
+      "tags": {
+        "historic": "monument",
+        "name": "Monumento a las Almas Benditas"
+      }
+    },
+    {
+      "type": "node",
+      "id": 6630407744,
+      "lat": 4.5973084,
+      "lon": -74.0841101,
+      "tags": {
+        "historic": "monument",
+        "name": "Pórtico"
+      }
+    },
+    {
+      "type": "node",
+      "id": 6639327853,
+      "lat": 4.5986832,
+      "lon": -74.1733467,
+      "tags": {
+        "historic": "monument",
+        "name": "Virgen del Carmen"
+      }
+    },
+    {
+      "type": "node",
+      "id": 6831374155,
+      "lat": 4.6052172,
+      "lon": -74.07846,
+      "tags": {
+        "addr:housenumber": "13-86",
+        "addr:street": "Calle 15",
+        "fee": "no",
+        "name": "Comisaria De Familia Localidad Santafe",
+        "tourism": "museum"
+      }
+    },
+    {
+      "type": "node",
+      "id": 6835840201,
+      "lat": 4.6622621,
+      "lon": -74.0513073,
+      "tags": {
+        "fee": "no",
+        "name": "Galería Baobab",
+        "tourism": "gallery"
+      }
+    },
+    {
+      "type": "node",
+      "id": 6883785262,
+      "lat": 4.6635447,
+      "lon": -74.0479451,
+      "tags": {
+        "check_date": "2025-07-02",
+        "fee": "no",
+        "name": "Galleria Casa Cuadrada",
+        "tourism": "gallery"
+      }
+    },
+    {
+      "type": "node",
+      "id": 6987675715,
+      "lat": 4.5246463,
+      "lon": -74.2790286,
+      "tags": {
+        "name": "Pinturas Rupestres",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "type": "node",
+      "id": 7087075539,
+      "lat": 4.7473646,
+      "lon": -74.0990527,
+      "tags": {
+        "addr:housenumber": "14",
+        "amenity": "arts_centre",
+        "name": "Art Fundación"
+      }
+    },
+    {
+      "type": "node",
+      "id": 7105960186,
+      "lat": 4.6687186,
+      "lon": -74.0643135,
+      "tags": {
+        "addr:street": "Carerra 26 #78-20",
+        "name": "Club De Tejo San Miguel",
+        "opening_hours": "Mo-Su 09:00-22:30",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "type": "node",
+      "id": 7905980315,
+      "lat": 4.5967557,
+      "lon": -74.0727557,
+      "tags": {
+        "access": "yes",
+        "description": "Estatua localizada en la Carrera 4 en la entrada de la Biblioteca Luis Ángel Arango. Personifica la diosa romana de la sabiduría.",
+        "historic": "monument",
+        "inscription": "Minerva",
+        "name": "La Minerva"
+      }
+    },
+    {
+      "type": "node",
+      "id": 8818261351,
+      "lat": 4.6668579,
+      "lon": -74.0920966,
+      "tags": {
+        "name": "Doble Loop",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "type": "node",
+      "id": 8818261354,
+      "lat": 4.666898,
+      "lon": -74.0907447,
+      "tags": {
+        "name": "Splash",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "type": "node",
+      "id": 8818261359,
+      "lat": 4.6690497,
+      "lon": -74.0909298,
+      "tags": {
+        "name": "SacaCorchos",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "type": "node",
+      "id": 8819597293,
+      "lat": 4.5987732,
+      "lon": -74.0739349,
+      "tags": {
+        "addr:city": "Bogotá D.C.",
+        "addr:housenumber": "12-09",
+        "addr:postcode": "111711",
+        "addr:street": "Carrera 6",
+        "email": "Galeriaespacioblanco@gmail.com",
+        "fee": "yes",
+        "name": "Galeria Espacio Blanco",
+        "opening_hours": "Mo-Sa 11:00-18:00",
+        "tourism": "gallery"
+      }
+    },
+    {
+      "type": "node",
+      "id": 8944522314,
+      "lat": 4.616538,
+      "lon": -74.1584833,
+      "tags": {
+        "addr:housenumber": "41B Sur-82",
+        "addr:street": "Transversal 78H Bis",
+        "amenity": "arts_centre",
+        "name": "Rincón Cultural El Caracol"
+      }
+    },
+    {
+      "type": "node",
+      "id": 9362471375,
+      "lat": 4.5303878,
+      "lon": -73.9233739,
+      "tags": {
+        "addr:housenumber": "5-11",
+        "addr:street": "Carrera 4",
+        "name": "Museo Nacional colombiano de las ciencias de la visión",
+        "operator": "http://www.museocienciavision.org/",
+        "tourism": "museum"
+      }
+    },
+    {
+      "type": "node",
+      "id": 10582874205,
+      "lat": 4.5964194,
+      "lon": -74.073055,
+      "tags": {
+        "addr:full": "Calle 11 N° 4-21",
+        "name": "Museo de Arte Miguel Urrutia MAMU",
+        "short_name": "MAMU",
+        "tourism": "museum"
+      }
+    },
+    {
+      "type": "node",
+      "id": 10582874206,
+      "lat": 4.596352,
+      "lon": -74.0734475,
+      "tags": {
+        "name": "Museo de Arte Miguel Urrutia MAMU",
+        "tourism": "museum"
+      }
+    },
+    {
+      "type": "node",
+      "id": 10734223505,
+      "lat": 4.5954277,
+      "lon": -73.960699,
+      "tags": {
+        "name": "Cueva de los Monos",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "type": "node",
+      "id": 11026554638,
+      "lat": 4.6635026,
+      "lon": -74.0563277,
+      "tags": {
+        "fee": "no",
+        "name": "Culto",
+        "tourism": "gallery"
+      }
+    },
+    {
+      "type": "node",
+      "id": 11916410830,
+      "lat": 4.6660393,
+      "lon": -74.0921896,
+      "tags": {
+        "name": "Drakko",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "type": "node",
+      "id": 12007434469,
+      "lat": 4.6627766,
+      "lon": -74.0645877,
+      "tags": {
+        "addr:street": "Calle 73 No. 22",
+        "amenity": "arts_centre",
+        "internet_access": "wlan",
+        "name": "Casa Calle 73-22",
+        "opening_hours": "Mo-Su 09:00-20:00",
+        "phone": "+57 (318) 243-4247"
+      }
+    },
+    {
+      "type": "node",
+      "id": 12010180269,
+      "lat": 4.6633352,
+      "lon": -74.0654589,
+      "tags": {
+        "addr:street": "Calle 73 #22-49",
+        "contact:instagram": "casa73_22",
+        "internet_access": "wlan",
+        "name": "Casa 73-22",
+        "tourism": "gallery"
+      }
+    },
+    {
+      "type": "node",
+      "id": 12233149593,
+      "lat": 4.7306632,
+      "lon": -74.2768177,
+      "tags": {
+        "access": "yes",
+        "historic": "monument",
+        "name": "La Virgen"
+      }
+    },
+    {
+      "type": "node",
+      "id": 12297795775,
+      "lat": 4.6743087,
+      "lon": -74.0473415,
+      "tags": {
+        "amenity": "arts_centre",
+        "name": "Institu français Colombie"
+      }
+    },
+    {
+      "type": "node",
+      "id": 12710633788,
+      "lat": 4.7199102,
+      "lon": -74.2258517,
+      "tags": {
+        "historic": "monument",
+        "inscription": "Gral. Tomás Cipriano de Mosquera"
+      }
+    },
+    {
+      "type": "node",
+      "id": 12731965505,
+      "lat": 4.7337612,
+      "lon": -74.2643699,
+      "tags": {
+        "access": "yes",
+        "historic": "monument",
+        "inscription": "El Municipio al Libertador.\nMayo 8 de 1830",
+        "name": "Obelisco a Bolívar"
+      }
+    },
+    {
+      "type": "node",
+      "id": 12960231735,
+      "lat": 4.58113,
+      "lon": -74.1935961,
+      "tags": {
+        "tourism": "attraction"
+      }
+    },
+    {
+      "type": "node",
+      "id": 12972090101,
+      "lat": 4.6004133,
+      "lon": -74.0716667,
+      "tags": {
+        "addr:housenumber": "12C-73",
+        "addr:street": "Carrera 5",
+        "amenity": "arts_centre",
+        "name": "Espacio Odeón",
+        "opening_hours": "We-Sa 11:00-18:00",
+        "website": "https://espacioodeon.com/"
+      }
+    },
+    {
+      "type": "node",
+      "id": 13438641463,
+      "lat": 4.679515,
+      "lon": -74.0381501,
+      "tags": {
+        "access": "yes",
+        "description": "Monumento conmemorando los 100 años del nacimiento de Mahatma Gandhi",
+        "historic": "monument",
+        "material": "metal",
+        "name": "Monumento a Gandhi"
+      }
+    },
+    {
+      "type": "node",
+      "id": 13608621180,
+      "lat": 4.6373453,
+      "lon": -74.0816532,
+      "tags": {
+        "addr:city": "Bogotá D.C.",
+        "addr:street": "303 bloque c",
+        "museum": "history",
+        "name": "410 - Laboratorio de Patrimonio Audiovisual ECYTV",
+        "operator": "Juana Schlenker",
+        "tourism": "museum"
+      }
+    },
+    {
+      "type": "way",
+      "id": 24251993,
+      "center": {
+        "lat": 4.6120661,
+        "lon": -74.0688228
+      },
+      "tags": {
+        "addr:city": "Bogotá",
+        "addr:country": "CO",
+        "addr:full": "Calle 26 B No.5 – 93",
+        "addr:housenumber": "5-93",
+        "addr:street": "Calle 26B",
+        "amenity": "planetarium",
+        "building": "yes",
+        "building:material": "concrete",
+        "changing_table": "yes",
+        "description": "El Planetario de Bogotá fue una idea materializada por el alcalde de Bogotá Virgilio Barco Vargas con el apoyo de la Federación de Cafeteros y el Banco Cafetero con Jorge Cárdenas Gutierrez.",
+        "height": "10",
+        "museum": "science",
+        "name": "Planetario de Bogotá",
+        "name:etymology:wikidata": "Q6077641",
+        "opening_hours": "Tu-Su 10:00-17:00",
+        "operator": "Instituto Distrital de las Artes",
+        "roof:colour": "grey",
+        "roof:shape": "flat",
+        "toilets": "yes",
+        "tourism": "museum",
+        "website": "https://www.planetariodebogota.gov.co/",
+        "wikidata": "Q6077641",
+        "wikimedia_commons": "Category:Planetarium of Bogotá",
+        "wikipedia": "es:Planetario de Bogotá"
+      }
+    },
+    {
+      "type": "way",
+      "id": 24265862,
+      "center": {
+        "lat": 4.6339627,
+        "lon": -74.0831741
+      },
+      "tags": {
+        "building": "university",
+        "name": "Museo de Arquitectura Leopoldo Rother",
+        "ref": "207",
+        "tourism": "museum"
+      }
+    },
+    {
+      "type": "way",
+      "id": 24265872,
+      "center": {
+        "lat": 4.6345781,
+        "lon": -74.0808648
+      },
+      "tags": {
+        "alt_name": "Museo de Arte",
+        "building": "university",
+        "name": "Museo de Arte de la Universidad Nacional de Colombia",
+        "ref": "317",
+        "tourism": "museum",
+        "wikidata": "Q5656585",
+        "wikipedia": "es:Museo de Arte de la Universidad Nacional de Colombia"
+      }
+    },
+    {
+      "type": "way",
+      "id": 24368657,
+      "center": {
+        "lat": 4.6101899,
+        "lon": -74.0696875
+      },
+      "tags": {
+        "amenity": "parking",
+        "name": "Mercado de las Pulgas",
+        "opening_hours": "Su",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "type": "way",
+      "id": 24428804,
+      "center": {
+        "lat": 4.610069,
+        "lon": -74.0692989
+      },
+      "tags": {
+        "alt_name": "MAMBO",
+        "area": "yes",
+        "name": "Museo de Arte Moderno de Bogotá",
+        "name:en": "Modern Art Museum of Bogota",
+        "name:es": "Museo de Arte Moderno de Bogotá",
+        "tourism": "museum",
+        "wikidata": "Q640718",
+        "wikimedia_commons": "Category:Museo de Arte Moderno de Bogotá",
+        "wikipedia": "es:Museo de Arte Moderno de Bogotá"
+      }
+    },
+    {
+      "type": "way",
+      "id": 24510191,
+      "center": {
+        "lat": 4.5946947,
+        "lon": -74.0787841
+      },
+      "tags": {
+        "building": "yes",
+        "name": "Museo Francisco José de Caldas",
+        "tourism": "museum"
+      }
+    },
+    {
+      "type": "way",
+      "id": 24510208,
+      "center": {
+        "lat": 4.5942122,
+        "lon": -74.0762692
+      },
+      "tags": {
+        "building": "yes",
+        "name": "Casa de la Cultura Julio E. Lleras",
+        "tourism": "gallery"
+      }
+    },
+    {
+      "type": "way",
+      "id": 24518462,
+      "center": {
+        "lat": 4.6155119,
+        "lon": -74.0682795
+      },
+      "tags": {
+        "addr:city": "Bogotá",
+        "addr:housenumber": "28-66",
+        "addr:postcode": "110311",
+        "addr:street": "Avenida Carrera 7",
+        "building": "yes",
+        "building:levels": "2",
+        "building:material": "stone",
+        "fee": "yes",
+        "name": "Museo Nacional de Colombia",
+        "name:en": "National Museum of Colombia",
+        "name:fr": "Musée National de Colombie",
+        "opening_hours": "Tu-Su 09:00-17:00",
+        "operator": "Ministerio de Cultura de Colombia",
+        "phone": "+57 1 381 6470",
+        "roof:material": "roof_tiles",
+        "roof:shape": "gabled",
+        "tourism": "museum",
+        "website": "https://www.museonacional.gov.co/",
+        "wikidata": "Q671264",
+        "wikimedia_commons": "Category:Museo Nacional de Colombia",
+        "wikipedia": "es:Museo Nacional de Colombia"
+      }
+    },
+    {
+      "type": "way",
+      "id": 24553337,
+      "center": {
+        "lat": 4.6679896,
+        "lon": -74.0907873
+      },
+      "tags": {
+        "building": "roof",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "type": "way",
+      "id": 24553339,
+      "center": {
+        "lat": 4.6682939,
+        "lon": -74.0905647
+      },
+      "tags": {
+        "building": "yes",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "type": "way",
+      "id": 24587421,
+      "center": {
+        "lat": 4.6679044,
+        "lon": -74.1003656
+      },
+      "tags": {
+        "addr:city": "Bogotá",
+        "addr:postcode": "11001",
+        "contact:facebook": "JardinBotanicoDeBogota",
+        "contact:instagram": "JardinBotanicoDeBogota",
+        "contact:twitter": "JBotanicoBogota",
+        "garden:type": "botanical",
+        "leisure": "garden",
+        "name": "Jardin Botanico José Celestino Mutis",
+        "opening_hours": "Mo-Fr 08:00-17:00; Sa-Su 09:00-17:00",
+        "toilets": "yes",
+        "tourism": "attraction",
+        "website": "https://www.jbb.gov.co/",
+        "wheelchair": "yes",
+        "wikidata": "Q979670",
+        "wikimedia_commons": "Category:Jardín Botánico de Bogotá",
+        "wikipedia": "es:Jardín botánico de Bogotá"
+      }
+    },
+    {
+      "type": "way",
+      "id": 24827269,
+      "center": {
+        "lat": 4.6929003,
+        "lon": -74.0324536
+      },
+      "tags": {
+        "addr:city": "Bogotá",
+        "addr:housenumber": "115-60",
+        "addr:street": "Avenida Carrera 7",
+        "addr:suburb": "Usaquén",
+        "brand": "Hacienda Santa Bárbara",
+        "brand:wikidata": "Q5396740",
+        "building": "commercial",
+        "building:levels": "3",
+        "contact:phone": "+57 601 612 0388",
+        "contact:website": "https://www.haciendasantabarbara.com.co/",
+        "heritage": "2",
+        "historic": "building",
+        "name": "Centro Comercial Hacienda Santa Bárbara",
+        "name:en": "Hacienda Santa Bárbara Mall",
+        "opening_hours": "Mo-Sa 10:00-21:00; Su 11:00-19:00",
+        "parking": "yes",
+        "shop": "mall",
+        "wheelchair": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 42820163,
+      "center": {
+        "lat": 4.6489761,
+        "lon": -74.1053274
+      },
+      "tags": {
+        "building": "government",
+        "museum": "technology",
+        "name": "Imprenta Nacional",
+        "operator": "Banco de la República",
+        "tourism": "museum"
+      }
+    },
+    {
+      "type": "way",
+      "id": 48206594,
+      "center": {
+        "lat": 4.5685255,
+        "lon": -74.1639488
+      },
+      "tags": {
+        "building": "yes",
+        "height": "5",
+        "historic": "monument",
+        "historic:civilization": "colonial",
+        "name": "Puente del Indio",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "type": "way",
+      "id": 53541012,
+      "center": {
+        "lat": 4.6182775,
+        "lon": -74.0693424
+      },
+      "tags": {
+        "amenity": "arts_centre",
+        "building": "yes",
+        "use": "Cultural"
+      }
+    },
+    {
+      "type": "way",
+      "id": 58868715,
+      "center": {
+        "lat": 4.5969338,
+        "lon": -74.0734873
+      },
+      "tags": {
+        "building": "yes",
+        "fee": "no",
+        "name": "Casa de la Moneda",
+        "tourism": "museum",
+        "wikidata": "Q3279784",
+        "wikimedia_commons": "Category:Casa de la Moneda (Bogotá)",
+        "wikipedia": "es:Casa de Moneda de Colombia"
+      }
+    },
+    {
+      "type": "way",
+      "id": 58868722,
+      "center": {
+        "lat": 4.5962197,
+        "lon": -74.073693
+      },
+      "tags": {
+        "amenity": "exhibition_centre",
+        "tourism": "gallery"
+      }
+    },
+    {
+      "type": "way",
+      "id": 58868730,
+      "center": {
+        "lat": 4.5983343,
+        "lon": -74.0751043
+      },
+      "tags": {
+        "building": "yes",
+        "name": "Museo Casa 20 de Julio",
+        "tourism": "museum",
+        "wheelchair": "no",
+        "wikidata": "Q6034366",
+        "wikimedia_commons": "Category:Museo de la Independencia",
+        "wikipedia": "es:Museo del 20 de julio"
+      }
+    },
+    {
+      "type": "way",
+      "id": 68421457,
+      "center": {
+        "lat": 4.6906963,
+        "lon": -74.0646584
+      },
+      "tags": {
+        "landuse": "recreation_ground",
+        "name": "Club Ecopetrol",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "type": "way",
+      "id": 177045756,
+      "center": {
+        "lat": 4.655432,
+        "lon": -74.1094916
+      },
+      "tags": {
+        "fee": "yes",
+        "name": "Maloka",
+        "tourism": "museum",
+        "wikidata": "Q13512792",
+        "wikimedia_commons": "Category:Maloka Museum",
+        "wikipedia": "es:Maloka"
+      }
+    },
+    {
+      "type": "way",
+      "id": 178733257,
+      "center": {
+        "lat": 4.7011884,
+        "lon": -74.1498104
+      },
+      "tags": {
+        "name": "Museo Aeronáutico",
+        "tourism": "museum"
+      }
+    },
+    {
+      "type": "way",
+      "id": 197457392,
+      "center": {
+        "lat": 4.6986615,
+        "lon": -74.0905592
+      },
+      "tags": {
+        "building": "yes",
+        "museum": "art",
+        "name": "Museo de Arte Contemporáneo",
+        "tourism": "museum",
+        "website": "https://www.mac.org.co/"
+      }
+    },
+    {
+      "type": "way",
+      "id": 231938380,
+      "center": {
+        "lat": 4.413862,
+        "lon": -73.9689252
+      },
+      "tags": {
+        "source": "Bing",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "type": "way",
+      "id": 238255998,
+      "center": {
+        "lat": 4.5972113,
+        "lon": -74.1804803
+      },
+      "tags": {
+        "building": "yes",
+        "description": "La antigua estación funciona como centro cultural",
+        "historic": "building",
+        "internet_access": "no",
+        "name": "Estación Bosa",
+        "train": "no",
+        "wheelchair": "no"
+      }
+    },
+    {
+      "type": "way",
+      "id": 295763868,
+      "center": {
+        "lat": 4.5761854,
+        "lon": -74.296623
+      },
+      "tags": {
+        "building": "yes",
+        "disused:tourism": "hotel",
+        "historic": "yes",
+        "name": "Casa Museo Salto del Tequendama",
+        "name:en": "Tequendama Falls Museum",
+        "old_name": "Hotel Salto del Tequendama",
+        "tourism": "museum",
+        "wikidata": "Q7701417",
+        "wikimedia_commons": "Category:Tequendama Falls Museum",
+        "wikipedia": "es:Casa Museo Salto del Tequendama"
+      }
+    },
+    {
+      "type": "way",
+      "id": 335042925,
+      "center": {
+        "lat": 4.6323873,
+        "lon": -74.0780761
+      },
+      "tags": {
+        "addr:housenumber": "41-24",
+        "addr:street": "Carrera 27A",
+        "amenity": "arts_centre",
+        "building": "yes",
+        "name": "Marquetería arte y pincel"
+      }
+    },
+    {
+      "type": "way",
+      "id": 406123786,
+      "center": {
+        "lat": 4.6057263,
+        "lon": -74.0669296
+      },
+      "tags": {
+        "addr:city": "Bogotá D.C.",
+        "addr:housenumber": "22",
+        "addr:street": "Carrera 3",
+        "historic": "monument",
+        "name": "Las edades de Bogotá",
+        "source": "https://www.civico.com/lugar/escultura-las-edades-de-bogota-bogota/"
+      }
+    },
+    {
+      "type": "way",
+      "id": 408001920,
+      "center": {
+        "lat": 4.6072428,
+        "lon": -74.0832503
+      },
+      "tags": {
+        "building": "train_station",
+        "historic": "building",
+        "name": "Estación de La Sabana",
+        "network": "Ferrocarril de La Sabana",
+        "operator": "Turistren"
+      }
+    },
+    {
+      "type": "way",
+      "id": 425353574,
+      "center": {
+        "lat": 4.6061252,
+        "lon": -74.0671205
+      },
+      "tags": {
+        "building": "yes",
+        "email": "utadeomas@utadeo.edu.co",
+        "fee": "no",
+        "level": "0",
+        "name": "Museo de Artes Visuales",
+        "name:fr": "Musée des arts visuels",
+        "operator": "Universidad Jorge Tadeo Lozano",
+        "phone": "+57 601 2427030 Ext. 1405-1404-1403",
+        "tourism": "museum",
+        "website": "https://www.utadeo.edu.co/es/micrositio/museo-de-artes-visuales",
+        "wheelchair": "limited"
+      }
+    },
+    {
+      "type": "way",
+      "id": 425617875,
+      "center": {
+        "lat": 4.6312745,
+        "lon": -74.1482717
+      },
+      "tags": {
+        "historic": "monument",
+        "name": "Monumento a las Banderas"
+      }
+    },
+    {
+      "type": "way",
+      "id": 447033645,
+      "center": {
+        "lat": 4.8064542,
+        "lon": -74.0330938
+      },
+      "tags": {
+        "attraction": "amusement_ride",
+        "description": "Espacio bajo techo con atracciones como pointball, bazuca, el túnel, arenera, la mina, pintucaritas, súper cars, yukids y barco pirata inflable",
+        "name": "Multopia",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "type": "way",
+      "id": 481690976,
+      "center": {
+        "lat": 4.6308151,
+        "lon": -74.069536
+      },
+      "tags": {
+        "addr:city": "Bogotá D.C.",
+        "addr:housenumber": "15-52",
+        "addr:street": "Calle 42",
+        "name": "Casa Museo Jorge Eliécer Gaitán",
+        "operator": "Universidad Nacional",
+        "tourism": "museum",
+        "wikidata": "Q5754394",
+        "wikipedia": "es:Casa Museo Jorge Eliécer Gaitán"
+      }
+    },
+    {
+      "type": "way",
+      "id": 529112374,
+      "center": {
+        "lat": 4.631285,
+        "lon": -74.0704716
+      },
+      "tags": {
+        "addr:housenumber": "39",
+        "addr:street": "Carrera 16 Bis",
+        "artwork_type": "books",
+        "building": "yes",
+        "fee": "no",
+        "name": "dos paticas de conejo",
+        "opening_hours": "Mo-Fr 11:00-18:00",
+        "tourism": "gallery"
+      }
+    },
+    {
+      "type": "way",
+      "id": 530125202,
+      "center": {
+        "lat": 4.7235801,
+        "lon": -74.0416445
+      },
+      "tags": {
+        "addr:street": "Avenida Carrera 15",
+        "building": "yes",
+        "name": "Art Box",
+        "source": "Kaart Ground Survey 2017",
+        "tourism": "gallery"
+      }
+    },
+    {
+      "type": "way",
+      "id": 530622765,
+      "center": {
+        "lat": 4.7185295,
+        "lon": -74.045416
+      },
+      "tags": {
+        "addr:street": "Calle 134A",
+        "amenity": "arts_centre",
+        "building": "yes",
+        "name": "Talentos",
+        "source": "Kaart Ground Survey 2017"
+      }
+    },
+    {
+      "type": "way",
+      "id": 530653084,
+      "center": {
+        "lat": 4.7162471,
+        "lon": -74.0342179
+      },
+      "tags": {
+        "addr:street": "Carrera 10",
+        "amenity": "arts_centre",
+        "building": "yes",
+        "name": "Strauss",
+        "source": "Kaart Ground Survey 2017"
+      }
+    },
+    {
+      "type": "way",
+      "id": 533256069,
+      "center": {
+        "lat": 4.6476176,
+        "lon": -74.0740868
+      },
+      "tags": {
+        "addr:city": "Bogotá",
+        "addr:street": "Diagonal 61C",
+        "building": "yes",
+        "fee": "no",
+        "name": "Arte Andino Galeria Marqueteria",
+        "source": "Kaart Ground Survey 2017",
+        "tourism": "gallery"
+      }
+    },
+    {
+      "type": "way",
+      "id": 541455186,
+      "center": {
+        "lat": 4.8496495,
+        "lon": -73.9038964
+      },
+      "tags": {
+        "name": "Capilla de Siecha",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "type": "way",
+      "id": 556459768,
+      "center": {
+        "lat": 4.64094,
+        "lon": -74.0801994
+      },
+      "tags": {
+        "alt_name": "Museo Geológico",
+        "fee": "no",
+        "museum": "nature",
+        "name": "Museo Geológico Nacional José Royo y Gómez",
+        "opening_hours": "Tu-Fr 09:00-16:00; Sa 10:00-16:00",
+        "tourism": "museum",
+        "wikidata": "Q3330582",
+        "wikipedia": "es:Museo Geológico Nacional José Royo y Gómez"
+      }
+    },
+    {
+      "type": "way",
+      "id": 556459770,
+      "center": {
+        "lat": 4.6389586,
+        "lon": -74.0800029
+      },
+      "tags": {
+        "building": "yes",
+        "name": "Museo de suelos de colombia",
+        "tourism": "museum"
+      }
+    },
+    {
+      "type": "way",
+      "id": 556547974,
+      "center": {
+        "lat": 4.6247443,
+        "lon": -74.0653351
+      },
+      "tags": {
+        "historic": "monument",
+        "name": "Mapa Relieve de Cundinamarca"
+      }
+    },
+    {
+      "type": "way",
+      "id": 587787311,
+      "center": {
+        "lat": 4.6031959,
+        "lon": -74.075576
+      },
+      "tags": {
+        "addr:city": "Veracruz",
+        "addr:housenumber": "Calle 15 # 9-64",
+        "addr:postcode": "110321",
+        "addr:street": "Calle 15",
+        "amenity": "arts_centre",
+        "building": "yes",
+        "email": "lakzonaeslazona@gmail.com",
+        "internet_access": "yes",
+        "name": "LaK-Zona",
+        "opening_hours": "Mo-Sa 07:00-20:00",
+        "opening_hours:covid19": "restricted",
+        "phone": "+1 3214102626",
+        "website": "https://lak-zona.red",
+        "wheelchair": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 588790515,
+      "center": {
+        "lat": 4.5975882,
+        "lon": -74.099264
+      },
+      "tags": {
+        "amenity": "arts_centre",
+        "building": "yes",
+        "name": "Antigua casa de la culture"
+      }
+    },
+    {
+      "type": "way",
+      "id": 588813177,
+      "center": {
+        "lat": 4.5997969,
+        "lon": -74.1028577
+      },
+      "tags": {
+        "amenity": "arts_centre",
+        "building": "yes",
+        "name": "Junta de acción comunal. Santa isabel"
+      }
+    },
+    {
+      "type": "way",
+      "id": 608492906,
+      "center": {
+        "lat": 4.565778,
+        "lon": -73.9039407
+      },
+      "tags": {
+        "name": "Museo etnocultural",
+        "source": "Bing y observaciones",
+        "tourism": "museum"
+      }
+    },
+    {
+      "type": "way",
+      "id": 617655800,
+      "center": {
+        "lat": 4.6026712,
+        "lon": -74.0627756
+      },
+      "tags": {
+        "name": "Quinta de Bolivar",
+        "tourism": "museum"
+      }
+    },
+    {
+      "type": "way",
+      "id": 630053908,
+      "center": {
+        "lat": 4.5864748,
+        "lon": -74.2073664
+      },
+      "tags": {
+        "area": "yes",
+        "name": "Rotonda Hogar del Sol",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "type": "way",
+      "id": 630803220,
+      "center": {
+        "lat": 4.5808849,
+        "lon": -74.2215672
+      },
+      "tags": {
+        "area": "yes",
+        "name": "Rotonda Indumil",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "type": "way",
+      "id": 630810636,
+      "center": {
+        "lat": 4.5454998,
+        "lon": -74.2442234
+      },
+      "tags": {
+        "abandoned:railway": "station",
+        "addr:city": "Sibaté",
+        "addr:street": "Autopista Sur",
+        "building": "train_station",
+        "description": "Antigua estación del Ferrocarril del Sur, Hoy en día cerrada",
+        "historic": "building",
+        "name": "Estación del tren Chusacá"
+      }
+    },
+    {
+      "type": "way",
+      "id": 641734973,
+      "center": {
+        "lat": 4.6107826,
+        "lon": -74.0688371
+      },
+      "tags": {
+        "addr:street": "Avenida Calle 26",
+        "area": "yes",
+        "building": "yes",
+        "building:levels": "1",
+        "description": "Lugar que fue parte de la Exposición Industrial y Agrícola de 1910 destinado para la exhibición de electricidad.",
+        "historic": "building",
+        "name": "Quiosco de la Luz"
+      }
+    },
+    {
+      "type": "way",
+      "id": 663327841,
+      "center": {
+        "lat": 4.6739743,
+        "lon": -74.0439653
+      },
+      "tags": {
+        "contact:facebook": "https://www.facebook.com/museoelchicobogota/",
+        "contact:instagram": "https://www.instagram.com/museoelchico/",
+        "contact:twitter": "https://mobile.twitter.com/museoelchico",
+        "fee": "yes",
+        "museum": "art;history",
+        "museum_type": "municipial",
+        "name": "Museo del Chicó",
+        "opening_hours": "Tu-Su 10:00-13:00, 14:00-16:30",
+        "tourism": "museum",
+        "website": "https://www.museodelchico.com/",
+        "wheelchair": "no",
+        "wikidata": "Q6034405",
+        "wikimedia_commons": "Category:Parque del Chicó",
+        "wikipedia": "es:Museo del Chicó"
+      }
+    },
+    {
+      "type": "way",
+      "id": 669008021,
+      "center": {
+        "lat": 4.6770987,
+        "lon": -74.0460411
+      },
+      "tags": {
+        "historic": "monument",
+        "inscription": "Avenida Estado de Israel",
+        "memorial": "plaque",
+        "name": "Estado de Israel"
+      }
+    },
+    {
+      "type": "way",
+      "id": 669452817,
+      "center": {
+        "lat": 4.6686684,
+        "lon": -74.0905749
+      },
+      "tags": {
+        "building": "roof",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "type": "way",
+      "id": 669452818,
+      "center": {
+        "lat": 4.6691379,
+        "lon": -74.0903897
+      },
+      "tags": {
+        "building": "roof",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "type": "way",
+      "id": 669452819,
+      "center": {
+        "lat": 4.6692751,
+        "lon": -74.0902511
+      },
+      "tags": {
+        "building": "roof",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "type": "way",
+      "id": 669452820,
+      "center": {
+        "lat": 4.6688622,
+        "lon": -74.0906172
+      },
+      "tags": {
+        "building": "roof",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "type": "way",
+      "id": 669453487,
+      "center": {
+        "lat": 4.6676688,
+        "lon": -74.0914621
+      },
+      "tags": {
+        "building": "roof",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "type": "way",
+      "id": 669453730,
+      "center": {
+        "lat": 4.6678234,
+        "lon": -74.091177
+      },
+      "tags": {
+        "building": "roof",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "type": "way",
+      "id": 669453731,
+      "center": {
+        "lat": 4.6673033,
+        "lon": -74.0914527
+      },
+      "tags": {
+        "building": "roof",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "type": "way",
+      "id": 669453757,
+      "center": {
+        "lat": 4.6677588,
+        "lon": -74.0909725
+      },
+      "tags": {
+        "building": "roof",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "type": "way",
+      "id": 680417633,
+      "center": {
+        "lat": 4.6103011,
+        "lon": -74.0693035
+      },
+      "tags": {
+        "building": "yes",
+        "building:levels": "2",
+        "building:material": "brick",
+        "fee": "yes",
+        "name": "MAMBO",
+        "tourism": "museum"
+      }
+    },
+    {
+      "type": "way",
+      "id": 718263467,
+      "center": {
+        "lat": 4.5992684,
+        "lon": -74.227086
+      },
+      "tags": {
+        "area": "yes",
+        "historic": "building",
+        "inscription": "Centro de memoria historica"
+      }
+    },
+    {
+      "type": "way",
+      "id": 760085276,
+      "center": {
+        "lat": 4.5001187,
+        "lon": -74.1173775
+      },
+      "tags": {
+        "name": "CREA Cantarrana",
+        "tourism": "museum"
+      }
+    },
+    {
+      "type": "way",
+      "id": 763467898,
+      "center": {
+        "lat": 4.5766802,
+        "lon": -74.0804015
+      },
+      "tags": {
+        "building": "yes",
+        "name": "Museo del Vidrio",
+        "tourism": "museum"
+      }
+    },
+    {
+      "type": "way",
+      "id": 816477921,
+      "center": {
+        "lat": 4.615685,
+        "lon": -74.0774057
+      },
+      "tags": {
+        "building": "yes",
+        "name": "Museo Exposicion del Hombre",
+        "tourism": "museum"
+      }
+    },
+    {
+      "type": "way",
+      "id": 889623001,
+      "center": {
+        "lat": 4.6773996,
+        "lon": -74.1396573
+      },
+      "tags": {
+        "building": "yes",
+        "name": "Replica Basilica San Pedro de Roma",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1019304025,
+      "center": {
+        "lat": 4.6020254,
+        "lon": -74.078112
+      },
+      "tags": {
+        "historic": "monument"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1019513996,
+      "center": {
+        "lat": 4.6312835,
+        "lon": -74.1482759
+      },
+      "tags": {
+        "access": "yes",
+        "historic": "monument",
+        "name": "Monumento a las Banderas",
+        "wikimedia_commons": "File:Monumento a banderas (Bogota-Colombia).jpg"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1019904238,
+      "center": {
+        "lat": 4.7917227,
+        "lon": -74.0448837
+      },
+      "tags": {
+        "attraction": "big_wheel",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1027446242,
+      "center": {
+        "lat": 4.7251357,
+        "lon": -74.025526
+      },
+      "tags": {
+        "name": "Centro Cultural Hacienda El Cedro",
+        "tourism": "museum"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1040565831,
+      "center": {
+        "lat": 4.5401719,
+        "lon": -73.917163
+      },
+      "tags": {
+        "name": "Centro Vacaional Acuatobogan Choachi",
+        "opening_hours": "Mo-Su 08:00-18:00",
+        "reservation": "no",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1147199455,
+      "center": {
+        "lat": 4.6592389,
+        "lon": -74.088494
+      },
+      "tags": {
+        "artist_name": "Cipriano Rubio, Alfredo Ricaurte, Ismael Rojas",
+        "historic": "monument",
+        "name": "Monumento a los Héroes Ignotos de la Indepenencia",
+        "start_date": "1910"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1168595199,
+      "center": {
+        "lat": 4.6313912,
+        "lon": -74.0713231
+      },
+      "tags": {
+        "alt_name": "Casa de Betty La Fea",
+        "building": "residential",
+        "disused:tourism": "museum",
+        "house": "yes",
+        "name": "Casa de Beatriz Pinzon Solano",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1175378306,
+      "center": {
+        "lat": 4.6682204,
+        "lon": -74.0915454
+      },
+      "tags": {
+        "attraction": "amusement_ride",
+        "name": "Apocalipsis",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1181862840,
+      "center": {
+        "lat": 4.5819202,
+        "lon": -74.217511
+      },
+      "tags": {
+        "addr:city": "Soacha Central",
+        "building": "yes",
+        "name": "Museo Arqueológico",
+        "tourism": "museum"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1253114923,
+      "center": {
+        "lat": 4.6941814,
+        "lon": -74.1604685
+      },
+      "tags": {
+        "addr:street": "Avenida Carrera 129",
+        "building": "yes",
+        "description": "Antigua estación del Ferrocarril de la Sabana que se usó hasta la anexión de Engativá al Distrito Capital de Bogotá y actualmente se encuentra al interior de un predio industrial.",
+        "historic": "building",
+        "internet_access": "no",
+        "name": "Estación Engativá",
+        "network": "Ferrocarril de La Sabana",
+        "operator": "Ferrocarriles Nacionales",
+        "train": "no"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1313895368,
+      "center": {
+        "lat": 4.6535872,
+        "lon": -74.0566875
+      },
+      "tags": {
+        "building": "yes",
+        "email": "utadeomas@utadeo.edu.co",
+        "level": "3",
+        "museum": "art",
+        "museum_type": "library",
+        "name": "Biblioteca Museo Carlos Lleras Restrepo, UJTL",
+        "operator": "Universidad de Bogota Jorge Tadeo Lozano",
+        "operator:type": "university",
+        "tourism": "museum",
+        "website": "https://www.utadeo.edu.co/es/micrositio/biblioteca-museo-carlos-lleras-restrepo"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1343508686,
+      "center": {
+        "lat": 4.6132322,
+        "lon": -74.069726
+      },
+      "tags": {
+        "historic": "monument"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1379146332,
+      "center": {
+        "lat": 4.5940258,
+        "lon": -74.0692856
+      },
+      "tags": {
+        "building": "yes",
+        "historic": "building",
+        "name": "Casa de Hermógenes Maza"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1430786268,
+      "center": {
+        "lat": 4.6306186,
+        "lon": -74.0697493
+      },
+      "tags": {
+        "building": "yes",
+        "tourism": "museum"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1446008695,
+      "center": {
+        "lat": 4.6697446,
+        "lon": -74.089766
+      },
+      "tags": {
+        "building": "roof",
+        "name": "Castillo del Terror",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1450149985,
+      "center": {
+        "lat": 4.6425942,
+        "lon": -74.0785977
+      },
+      "tags": {
+        "building": "yes",
+        "name": "Puentes que Unen",
+        "tourism": "gallery"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1455542414,
+      "center": {
+        "lat": 4.6046286,
+        "lon": -74.2094333
+      },
+      "tags": {
+        "area": "yes",
+        "name": "Rotonda de Manzanilla",
+        "tourism": "attraction"
+      }
+    }
+  ]
+}
