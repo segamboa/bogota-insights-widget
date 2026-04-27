@@ -30,8 +30,7 @@ jobs:
       # - name: Lint
       #   run: pnpm lint
 
-      - name: Type check
-        run: pnpm run -r build --dry-run=false
+      # Type checking is already covered by the Build step (tsc in each package)
 
       - name: Test
         run: pnpm test
