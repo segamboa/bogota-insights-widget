@@ -157,8 +157,8 @@ export function generateCategorySummary(
     const label = labelsEn[category];
     if (score >= 80) return `Excellent ${label}`;
     if (score >= 60) return `Good ${label}`;
-    if (score >= 40) return `Acceptable ${label}`;
-    if (score >= 20) return `Limited ${label}`;
+    if (score >= 40) return `Growing ${label} — investment opportunity`;
+    if (score >= 25) return `Emerging area — high growth potential`;
     if (poiCount === 0) return `No ${label} data`;
     return `Very limited ${label}`;
   }
@@ -166,17 +166,17 @@ export function generateCategorySummary(
   const labels: Record<CategoryType, string> = {
     transport: 'conectividad de transporte',
     commerce: 'oferta comercial',
-    education: 'acceso a educacion',
+    education: 'acceso a educación',
     health: 'acceso a salud',
-    recreation: 'opciones de recreacion',
+    recreation: 'opciones de recreación',
   };
 
   const label = labels[category];
 
   if (score >= 80) return `Excelente ${label}`;
   if (score >= 60) return `Buena ${label}`;
-  if (score >= 40) return `${label[0].toUpperCase() + label.slice(1)} aceptable`;
-  if (score >= 20) return `${label[0].toUpperCase() + label.slice(1)} limitada`;
+  if (score >= 40) return `${label[0].toUpperCase() + label.slice(1)} en crecimiento — oportunidad de inversión`;
+  if (score >= 25) return `Área emergente — alto potencial de desarrollo`;
   if (poiCount === 0) return `Sin datos de ${label}`;
   return `${label[0].toUpperCase() + label.slice(1)} muy limitada`;
 }

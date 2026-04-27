@@ -39,6 +39,10 @@ export interface CategoryScore {
   summary: string;
   pois: POI[];
   counts: Record<string, number>;
+  /** Percentile within Bogotá urban distribution (0-100). Higher = better than more locations. */
+  percentile?: number;
+  /** City median score for this category (context for comparison). */
+  cityMedian?: number;
 }
 
 export interface POI {

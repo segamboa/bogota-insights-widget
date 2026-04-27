@@ -5,6 +5,7 @@ import { findPoisWithinRadius, getInsightsCache, setInsightsCache, getPoiCountsB
 import type { PoiRow } from '../db/queries.js';
 import { getCache, setCache } from '../cache/redis.js';
 import { computeCategoryScore, computeOverallScore, generateCategorySummary } from './scoring.js';
+import { getAllPercentiles } from './percentiles.js';
 
 const CATEGORIES: CategoryType[] = ['transport', 'commerce', 'education', 'health', 'recreation'];
 
@@ -93,8 +94,21 @@ export async function getInsights(opts: GetInsightsOptions): Promise<InsightsRes
     };
   }
 
-  // Overall score
+  // Compute overall score
   scores.overall = computeOverallScore(scores as Record<CategoryType, number>);
+
+  // Add percentile context (growth-oriented framing)
+  const percentiles = getAllPercentiles(scores);
+  for (const category of [...CATEGORIES, 'overall']) {
+    const catKey = category as CategoryType | 'overall';
+    const ctx = percentiles[category];
+    if (ctx && categories[category]) {
+      categories[category].percentile = ctx.percentile;
+      categories[category].cityMedian = ctx.cityMedian;
+    }
+  }
+
+  // Overall score already computed above
 
   // Source coverage
   const sourceCounts: Record<string, number> = {};

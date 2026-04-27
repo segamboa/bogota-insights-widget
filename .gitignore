@@ -50,8 +50,10 @@ temp/
 packages/api/data/*.geojson
 packages/api/data/*.txt
 packages/api/data/*.csv
-# Generated survey outputs
+# Generated survey outputs and heatmaps
 packages/api/data/survey*.json
+packages/api/data/heatmap*.png
+packages/api/data/categories-heatmap*.png
 
 # pnpm debug log
 pnpm-debug.log*
