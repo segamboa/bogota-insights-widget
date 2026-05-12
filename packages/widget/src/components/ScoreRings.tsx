@@ -2,7 +2,8 @@ import { h } from 'preact';
 import { useEffect, useRef, useState } from 'preact/hooks';
 import type { CategoryType } from '@bogota-insights/shared';
 import { getScoreColor } from '../utils/scores';
-import { getCategoryLabel, getScoreLabel } from '../utils/i18n';
+import { getCategoryLabel } from '../utils/i18n';
+import { transportIcon, commerceIcon, educationIcon, healthIcon, recreationIcon } from '../utils/icons';
 
 function useReducedMotion(): boolean {
   const [reduced, setReduced] = useState(() =>
@@ -20,6 +21,14 @@ function useReducedMotion(): boolean {
   return reduced;
 }
 
+const CATEGORY_ICONS: Record<CategoryType, (props: { size?: number; color?: string }) => any> = {
+  transport: transportIcon,
+  commerce: commerceIcon,
+  education: educationIcon,
+  health: healthIcon,
+  recreation: recreationIcon,
+};
+
 interface ScoreRingsProps {
   scores: Record<string, number>;
   lang: 'es' | 'en';
@@ -28,8 +37,8 @@ interface ScoreRingsProps {
 }
 
 const CATEGORIES: CategoryType[] = ['transport', 'commerce', 'education', 'health', 'recreation'];
-const RING_SIZE = 56;
-const STROKE_WIDTH = 4;
+const RING_SIZE = 52;
+const STROKE_WIDTH = 3.5;
 const RADIUS = (RING_SIZE - STROKE_WIDTH) / 2;
 const CIRCUMFERENCE = 2 * Math.PI * RADIUS;
 
@@ -51,6 +60,8 @@ function ScoreRing({
   const [animatedScore, setAnimatedScore] = useState(0);
   const rafRef = useRef<number>(0);
   const reducedMotion = useReducedMotion();
+  const color = getScoreColor(score);
+  const Icon = CATEGORY_ICONS[category];
 
   useEffect(() => {
     if (reducedMotion) {
@@ -66,7 +77,7 @@ function ScoreRing({
       const animate = (timestamp: number) => {
         if (!start) start = timestamp;
         const progress = Math.min((timestamp - start) / duration, 1);
-        const eased = 1 - Math.pow(1 - progress, 3); // ease-out cubic
+        const eased = 1 - Math.pow(1 - progress, 3);
         setAnimatedScore(Math.round(eased * score));
         if (progress < 1) {
           rafRef.current = requestAnimationFrame(animate);
@@ -81,56 +92,49 @@ function ScoreRing({
     };
   }, [score, index, reducedMotion]);
 
-  const color = getScoreColor(score);
   const offset = CIRCUMFERENCE - (animatedScore / 100) * CIRCUMFERENCE;
   const label = getCategoryLabel(category, lang);
-  const scoreDescr = getScoreLabel(score, lang);
 
   return (
     <button
       class="bi-score-ring-btn"
       onClick={onClick}
-      aria-label={`${label}: ${score} de 100, ${scoreDescr}`}
+      aria-label={`${label}: ${score} de 100`}
       type="button"
     >
-      <svg
-        width={RING_SIZE}
-        height={RING_SIZE}
-        viewBox={`0 0 ${RING_SIZE} ${RING_SIZE}`}
-        class="bi-score-svg"
-      >
-        <circle
-          cx={RING_SIZE / 2}
-          cy={RING_SIZE / 2}
-          r={RADIUS}
-          fill="none"
-          stroke="var(--bi-border)"
-          stroke-width={STROKE_WIDTH}
-        />
-        <circle
-          cx={RING_SIZE / 2}
-          cy={RING_SIZE / 2}
-          r={RADIUS}
-          fill="none"
-          stroke={color}
-          stroke-width={STROKE_WIDTH}
-          stroke-dasharray={CIRCUMFERENCE}
-          stroke-dashoffset={offset}
-          stroke-linecap="round"
-          transform={`rotate(-90 ${RING_SIZE / 2} ${RING_SIZE / 2})`}
-          style={isLimited ? { strokeDasharray: '4 3' } : undefined}
-        />
-        <text
-          x={RING_SIZE / 2}
-          y={RING_SIZE / 2}
-          text-anchor="middle"
-          dominant-baseline="central"
-          class="bi-score-number"
-          fill="var(--bi-text)"
+      <div class="bi-ring-wrap">
+        <svg
+          width={RING_SIZE}
+          height={RING_SIZE}
+          viewBox={`0 0 ${RING_SIZE} ${RING_SIZE}`}
+          class="bi-score-svg"
         >
+          <circle
+            cx={RING_SIZE / 2}
+            cy={RING_SIZE / 2}
+            r={RADIUS}
+            fill="none"
+            stroke="var(--bi-border)"
+            stroke-width={STROKE_WIDTH}
+          />
+          <circle
+            cx={RING_SIZE / 2}
+            cy={RING_SIZE / 2}
+            r={RADIUS}
+            fill="none"
+            stroke={color}
+            stroke-width={STROKE_WIDTH}
+            stroke-dasharray={CIRCUMFERENCE}
+            stroke-dashoffset={offset}
+            stroke-linecap="round"
+            transform={`rotate(-90 ${RING_SIZE / 2} ${RING_SIZE / 2})`}
+            style={isLimited ? { strokeDasharray: '3 3' } : undefined}
+          />
+        </svg>
+        <span class="bi-ring-number" style={{ color }}>
           {score > 0 ? animatedScore : '--'}
-        </text>
-      </svg>
+        </span>
+      </div>
       <span class="bi-score-label">{label}</span>
       {isLimited && <span class="bi-score-limited">*</span>}
     </button>

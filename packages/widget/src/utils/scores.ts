@@ -33,3 +33,10 @@ export function isLimitedData(poiCount: number): boolean {
 export function hasNoData(poiCount: number): boolean {
   return poiCount === 0;
 }
+
+export function getScoreTier(score: number): 'low' | 'moderate' | 'good' | 'excellent' {
+  if (score < 40) return 'low';
+  if (score < 60) return 'moderate';
+  if (score < 80) return 'good';
+  return 'excellent';
+}

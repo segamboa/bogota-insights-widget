@@ -6,6 +6,7 @@ import { Header } from './Header';
 import { ScoreRings } from './ScoreRings';
 import { RadiusSelector } from './RadiusSelector';
 import { CategoryCard } from './CategoryCard';
+import { InvestmentCard } from './InvestmentCard';
 import { Footer } from './Footer';
 import { LoadingSkeleton } from './LoadingSkeleton';
 import { ErrorState } from './ErrorState';
@@ -108,6 +109,7 @@ export function Widget({
             lang={lang}
             showEstrato={showEstrato}
             theme={theme}
+            overallScore={data.scores.overall}
           />
 
           <ScoreRings
@@ -117,9 +119,12 @@ export function Widget({
             limitedCategories={limitedCategories}
           />
 
-          <RadiusSelector radius={radius} onChange={handleRadiusChange} lang={lang} />
+          {data.investment && (
+            <InvestmentCard investment={data.investment} lang={lang} />
+          )}
 
           <div class="bi-categories" role="list" aria-label="Category details">
+
             {CATEGORIES.filter((cat) => data.categories[cat]).map((cat) => (
               <CategoryCard
                 key={cat}
@@ -132,6 +137,8 @@ export function Widget({
               />
             ))}
           </div>
+
+          <RadiusSelector radius={radius} onChange={handleRadiusChange} lang={lang} />
 
           <Footer
             sources={data.meta.sources}

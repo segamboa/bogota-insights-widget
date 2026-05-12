@@ -141,19 +141,21 @@ export async function setInsightsCache(
   locationMeta: Record<string, unknown>,
   sourceCoverage: Record<string, number>,
   ttlHours: number = 24,
+  investment?: Record<string, unknown>,
 ): Promise<void> {
   await query(
-    `INSERT INTO insights_cache (geohash, radius_m, lang, scores, pois_summary, location_meta, source_coverage, expires_at)
-     VALUES ($1, $2, $3, $4, $5, $6, $7, NOW() + INTERVAL '1 hour' * $8)
+    `INSERT INTO insights_cache (geohash, radius_m, lang, scores, pois_summary, location_meta, source_coverage, investment, expires_at)
+     VALUES ($1, $2, $3, $4, $5, $6, $7, $8, NOW() + INTERVAL '1 hour' * $9)
      ON CONFLICT (geohash, radius_m, lang)
      DO UPDATE SET
        scores = EXCLUDED.scores,
        pois_summary = EXCLUDED.pois_summary,
        location_meta = EXCLUDED.location_meta,
        source_coverage = EXCLUDED.source_coverage,
+       investment = EXCLUDED.investment,
        computed_at = NOW(),
-       expires_at = NOW() + INTERVAL '1 hour' * $8`,
-    [geohash, radiusM, lang, JSON.stringify(scores), JSON.stringify(poisSummary), JSON.stringify(locationMeta), JSON.stringify(sourceCoverage), ttlHours],
+       expires_at = NOW() + INTERVAL '1 hour' * $9`,
+    [geohash, radiusM, lang, JSON.stringify(scores), JSON.stringify(poisSummary), JSON.stringify(locationMeta), JSON.stringify(sourceCoverage), investment ? JSON.stringify(investment) : null, ttlHours],
   );
 }
 
@@ -278,4 +280,61 @@ export async function getPoiCountsBySource(): Promise<Record<string, number>> {
  */
 export async function clearInsightsCache(): Promise<void> {
   await query(`TRUNCATE TABLE insights_cache`);
+}
+
+/**
+ * Record a score snapshot for trend analysis.
+ */
+export async function recordScoreSnapshot(
+  lat: number,
+  lng: number,
+  radiusM: number,
+  scores: Record<string, number>,
+  sourceVersion?: string,
+): Promise<void> {
+  await query(
+    `INSERT INTO score_snapshots (lat, lng, radius_m, scores, source_version)
+     VALUES ($1, $2, $3, $4, $5)`,
+    [lat, lng, radiusM, JSON.stringify(scores), sourceVersion ?? null],
+  );
+}
+
+/**
+ * Get the most recent previous score snapshot for a location.
+ * Returns null if no previous snapshot exists.
+ */
+export async function getPreviousScoreSnapshot(
+  lat: number,
+  lng: number,
+  radiusM: number,
+): Promise<{ scores: Record<string, number>; recorded_at: Date } | null> {
+  const result = await query(
+    `SELECT scores, recorded_at
+     FROM score_snapshots
+     WHERE lat = $1 AND lng = $2 AND radius_m = $3
+     ORDER BY recorded_at DESC
+     LIMIT 1 OFFSET 0`,
+    [lat, lng, radiusM],
+  );
+  return result.rows[0] ?? null;
+}
+
+/**
+ * Get score snapshots for a location within a date range.
+ */
+export async function getScoreSnapshots(
+  lat: number,
+  lng: number,
+  radiusM: number,
+  months: number = 6,
+): Promise<Array<{ scores: Record<string, number>; recorded_at: Date }>> {
+  const result = await query(
+    `SELECT scores, recorded_at
+     FROM score_snapshots
+     WHERE lat = $1 AND lng = $2 AND radius_m = $3
+       AND recorded_at > NOW() - INTERVAL '1 month' * $4
+     ORDER BY recorded_at DESC`,
+    [lat, lng, radiusM, months],
+  );
+  return result.rows;
 }

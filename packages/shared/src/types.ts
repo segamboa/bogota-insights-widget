@@ -34,6 +34,14 @@ export interface Location {
 
 export type CategoryType = 'transport' | 'commerce' | 'education' | 'health' | 'recreation';
 
+export interface CategoryTrend {
+  direction: 'up' | 'down' | 'stable';
+  /** Score point change from previous snapshot (can be negative). */
+  delta: number;
+  /** Number of months between current and previous snapshot. */
+  monthsAgo: number;
+}
+
 export interface CategoryScore {
   score: number; // 0-100
   summary: string;
@@ -43,6 +51,19 @@ export interface CategoryScore {
   percentile?: number;
   /** City median score for this category (context for comparison). */
   cityMedian?: number;
+  /** Median score for survey points within ~3km (local market context). */
+  localMedian?: number;
+  /** Percentile within local radius (vs city-wide). */
+  localPercentile?: number;
+  /** Month-over-month trend (if snapshot data exists). */
+  trend?: CategoryTrend;
+}
+
+export interface InvestmentScore {
+  score: number; // 0-100
+  summary: string;
+  /** Signal strength: 'strong_buy', 'buy', 'hold', 'watch' */
+  signal: string;
 }
 
 export interface POI {
@@ -66,8 +87,11 @@ export interface InsightsResponse {
     education: number;
     health: number;
     recreation: number;
+    investment?: number;
   };
   categories: Record<CategoryType, CategoryScore>;
+  /** Investment/growth potential analysis (separate from lifestyle categories). */
+  investment?: InvestmentScore;
   meta: {
     data_timestamp: string;
     radius_m: number;
