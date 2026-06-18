@@ -1,4 +1,25 @@
-import * as turf from '@turf/turf'
+import { point, lineString } from '@turf/helpers'
+import distance from '@turf/distance'
+import centroid from '@turf/centroid'
+import pointToLineDistance from '@turf/point-to-line-distance'
+
+/**
+ * Get a coordinate point regardless of geometry type.
+ * @param {Object} f - GeoJSON feature
+ * @returns {Object|null} - Turf point feature or null
+ */
+export const getPoint = (f) => {
+    try {
+        if (!f.geometry || !f.geometry.coordinates || f.geometry.coordinates.length === 0) return null;
+        if (f.geometry.type === 'Point') {
+            return point(f.geometry.coordinates);
+        }
+        // For Polygons/MultiPolygons, use centroid
+        return centroid(f);
+    } catch {
+        return null;
+    }
+};
 
 /**
  * Calculate scores based on location and geojson data
@@ -6,27 +27,13 @@ import * as turf from '@turf/turf'
  * @param {Object} data - { pois, primaryRoads, secondaryRoads, hospEscEntret, publicTransport }
  */
 export const calculateScores = (location, data) => {
-    const point = turf.point([location.lng, location.lat]);
+    const center = point([location.lng, location.lat]);
 
     // Define score categories
     const scores = {
         walking: { total: 0, details: {} },
         driving: { total: 0, details: {} },
         transport: 0 // Road connectivity
-    };
-
-    // Helper to get a coordinate point regarding of geometry type
-    const getPoint = (f) => {
-        try {
-            if (!f.geometry || !f.geometry.coordinates || f.geometry.coordinates.length === 0) return null;
-            if (f.geometry.type === 'Point') {
-                return turf.point(f.geometry.coordinates);
-            }
-            // For Polygons/MultiPolygons, use centroid
-            return turf.centroid(f);
-        } catch {
-            return null;
-        }
     };
 
     const insights = [];
@@ -38,15 +45,15 @@ export const calculateScores = (location, data) => {
 
     let tScore = 0;
 
-    // A. Primary Road Diversity (1.5km buffer)
+    // A. Primary Road Diversity (2km buffer)
     let primaryScore = 0;
     let uniqueRoads = 0;
     if (data.primaryRoads) {
         const roadOptions = new Set();
         data.primaryRoads.features.forEach(f => {
-            const line = turf.lineString(f.geometry.coordinates);
-            const dist = turf.pointToLineDistance(point, line, { units: 'kilometers' });
-            if (dist <= 1.5) {
+            const line = lineString(f.geometry.coordinates);
+            const dist = pointToLineDistance(center, line, { units: 'kilometers' });
+            if (dist <= 2.0) {
                 const name = f.properties.name || f.properties.ref;
                 if (name) roadOptions.add(name);
             }
@@ -65,8 +72,8 @@ export const calculateScores = (location, data) => {
     let secondaryCount = 0;
     if (data.secondaryRoads) {
         data.secondaryRoads.features.forEach(f => {
-            const line = turf.lineString(f.geometry.coordinates);
-            const dist = turf.pointToLineDistance(point, line, { units: 'kilometers' });
+            const line = lineString(f.geometry.coordinates);
+            const dist = pointToLineDistance(center, line, { units: 'kilometers' });
             if (dist <= 1.0) {
                 secondaryCount++;
             }
@@ -103,8 +110,8 @@ export const calculateScores = (location, data) => {
             lifestyle: 0  // cafes, restaurants, parks
         },
         drive: {
-            health: 0,        // hospitals
-            university: 0,    // universities
+            health: 0,        // hospitals, clinics, doctors
+            university: 0,    // universities, colleges
             entertainment: 0, // cinema, mall, parks, etc
         }
     };
@@ -115,8 +122,8 @@ export const calculateScores = (location, data) => {
             const fPoint = getPoint(f);
             if (!fPoint) return;
 
-            const distance = turf.distance(point, fPoint, { units: 'kilometers' });
-            if (distance <= walkRadius) {
+            const dist = distance(center, fPoint, { units: 'kilometers' });
+            if (dist <= walkRadius) {
                 const props = f.properties;
                 // Strict check based on user query
                 if (props.highway === 'bus_stop' ||
@@ -135,38 +142,38 @@ export const calculateScores = (location, data) => {
             const fPoint = getPoint(f);
             if (!fPoint) return;
 
-            const distance = turf.distance(point, fPoint, { units: 'kilometers' });
+            const dist = distance(center, fPoint, { units: 'kilometers' });
             const props = f.properties;
             const amenity = props.amenity || '';
             const shop = props.shop || '';
             const leisure = props.leisure || '';
 
             // Walk: Education (Schools, Libraries)
-            if (distance <= walkRadius) {
+            if (dist <= walkRadius) {
                 if (['school', 'library', 'kindergarten'].includes(amenity)) { // Added library as per query
                     counts.walk.education++;
                 }
             }
 
             // Drive: Health, University, Entertainment
-            if (distance <= driveRadius) {
-                // Health: Hospital only
-                if (amenity === 'hospital') {
+            if (dist <= driveRadius) {
+                // Health: Hospital, clinic, doctors
+                if (['hospital', 'clinic', 'doctors'].includes(amenity)) {
                     counts.drive.health++;
                 }
 
-                // University
-                if (amenity === 'university') {
+                // University: university, college
+                if (['university', 'college'].includes(amenity)) {
                     counts.drive.university++;
                 }
 
                 // Entertainment (Strict Match from Query)
                 // Amenities
-                if (['cinema', 'theatre', 'nightclub', 'arts_centre', 'planetarium'].includes(amenity)) {
+                if (['cinema', 'theatre', 'nightclub', 'arts_centre', 'planetarium', 'casino'].includes(amenity)) {
                     counts.drive.entertainment++;
                 }
                 // Shops
-                if (shop === 'mall') {
+                if (['mall', 'department_store'].includes(shop)) {
                     counts.drive.entertainment++;
                 }
                 // Leisure
@@ -184,14 +191,14 @@ export const calculateScores = (location, data) => {
             const fPoint = getPoint(f);
             if (!fPoint) return;
 
-            const distance = turf.distance(point, fPoint, { units: 'kilometers' });
+            const dist = distance(center, fPoint, { units: 'kilometers' });
             const props = f.properties;
             const amenity = props.amenity || '';
             const shop = props.shop || '';
             const leisure = props.leisure || '';
 
             // WALKING ZONE (< 500m) - Daily & Lifestyle
-            if (distance <= walkRadius) {
+            if (dist <= walkRadius) {
                 // --- Daily Needs (Groceries, Services, Financial) ---
 
                 // Groceries (high impact)
@@ -220,7 +227,7 @@ export const calculateScores = (location, data) => {
 
                 // Recreation/Fitness (Small scale)
                 if (['gym', 'dojo', 'dance'].includes(amenity) ||
-                    ['fitness_centre', 'pitch', 'sports_centre', 'playground'].includes(leisure)) {
+                    ['fitness_centre', 'pitch', 'sports_centre', 'playground', 'park'].includes(leisure)) {
                     counts.walk.lifestyle++;
                 }
             }
