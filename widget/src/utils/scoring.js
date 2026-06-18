@@ -24,7 +24,7 @@ export const calculateScores = (location, data) => {
             }
             // For Polygons/MultiPolygons, use centroid
             return turf.centroid(f);
-        } catch (e) {
+        } catch {
             return null;
         }
     };

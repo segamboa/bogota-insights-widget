@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import MapComponent from './components/MapComponent';
 import { calculateScores } from './utils/scoring';
 
@@ -170,6 +171,11 @@ const Widget = ({ lat, lng }) => {
             </div>
         </div>
     );
+};
+
+Widget.propTypes = {
+    lat: PropTypes.number.isRequired,
+    lng: PropTypes.number.isRequired,
 };
 
 export default Widget;

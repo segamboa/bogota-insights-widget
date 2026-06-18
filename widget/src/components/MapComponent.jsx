@@ -1,4 +1,5 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { MapContainer, TileLayer, Marker, Popup, Circle, useMap } from 'react-leaflet';
 import L from 'leaflet';
 import icon from 'leaflet/dist/images/marker-icon.png';
@@ -20,6 +21,11 @@ const RecenterMap = ({ lat, lng }) => {
         map.setView([lat, lng]);
     }, [lat, lng, map]);
     return null;
+};
+
+RecenterMap.propTypes = {
+    lat: PropTypes.number.isRequired,
+    lng: PropTypes.number.isRequired,
 };
 
 const MapComponent = ({ lat, lng }) => {
@@ -57,6 +63,11 @@ const MapComponent = ({ lat, lng }) => {
             </Circle>
         </MapContainer>
     );
+};
+
+MapComponent.propTypes = {
+    lat: PropTypes.number.isRequired,
+    lng: PropTypes.number.isRequired,
 };
 
 export default MapComponent;
