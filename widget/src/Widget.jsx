@@ -5,15 +5,23 @@ import { calculateScores } from './utils/scoring';
 
 const Widget = ({ lat, lng }) => {
     const [loading, setLoading] = useState(true);
+    const [isRecalculating, setIsRecalculating] = useState(false);
     const [data, setData] = useState(null);
     const [results, setResults] = useState(null);
     const [error, setError] = useState(null);
     const [activeTab, setActiveTab] = useState('walk'); // 'walk' or 'drive'
 
+    const [currentLat, setCurrentLat] = useState(lat);
+    const [currentLng, setCurrentLng] = useState(lng);
+    const [inputLat, setInputLat] = useState(String(lat));
+    const [inputLng, setInputLng] = useState(String(lng));
+    const [validationError, setValidationError] = useState(null);
+
     useEffect(() => {
         const fetchData = async () => {
             try {
                 setLoading(true);
+                setError(null);
                 // Ensure data is only fetched once if possible in a real app (memoize or context)
                 // For now, simple fetch
                 const [poisRes, primRes, secRes, heRes, tpRes] = await Promise.all([
@@ -37,9 +45,8 @@ const Widget = ({ lat, lng }) => {
                 const loadedData = { pois, primaryRoads, secondaryRoads, hospEscEntret, publicTransport };
                 setData(loadedData);
 
-                const calculation = calculateScores({ lat, lng }, loadedData);
+                const calculation = calculateScores({ lat: currentLat, lng: currentLng }, loadedData);
                 setResults(calculation);
-
             } catch (err) {
                 console.error(err);
                 setError('Failed to load spatial data.');
@@ -49,18 +56,51 @@ const Widget = ({ lat, lng }) => {
         };
 
         fetchData();
-    }, [lat, lng]);
+    }, [currentLat, currentLng]);
 
     useEffect(() => {
-        if (data && lat && lng) {
-            const calculation = calculateScores({ lat, lng }, data);
-            setResults(calculation);
+        if (data) {
+            setIsRecalculating(true);
+            try {
+                const calculation = calculateScores({ lat: currentLat, lng: currentLng }, data);
+                setResults(calculation);
+                setError(null);
+            } catch (err) {
+                console.error(err);
+                setError('Error al calcular los puntajes.');
+                setResults(null);
+            } finally {
+                setIsRecalculating(false);
+            }
         }
-    }, [lat, lng, data]);
+    }, [currentLat, currentLng, data]);
+
+    const handleUpdateLocation = () => {
+        const parsedLat = parseFloat(inputLat);
+        const parsedLng = parseFloat(inputLng);
+
+        if (Number.isNaN(parsedLat) || Number.isNaN(parsedLng)) {
+            setValidationError('Latitud y longitud deben ser números válidos.');
+            return;
+        }
+
+        if (parsedLat < -90 || parsedLat > 90) {
+            setValidationError('La latitud debe estar entre -90 y 90.');
+            return;
+        }
+
+        if (parsedLng < -180 || parsedLng > 180) {
+            setValidationError('La longitud debe estar entre -180 y 180.');
+            return;
+        }
+
+        setValidationError(null);
+        setCurrentLat(parsedLat);
+        setCurrentLng(parsedLng);
+    };
 
     if (loading) return <div className="re-widget"><div className="loading-overlay">Cargando datos de Bogotá...</div></div>;
     if (error) return <div className="re-widget"><div className="loading-overlay" style={{ color: 'var(--danger)' }}>{error}</div></div>;
-    if (!results) return null;
 
     const getScoreColor = (score) => {
         if (score >= 8) return 'var(--success)';
@@ -68,13 +108,23 @@ const Widget = ({ lat, lng }) => {
         return 'var(--danger)';
     };
 
+    if (!results) {
+        return (
+            <div className="re-widget">
+                <div className="loading-overlay">
+                    No se pudieron calcular los puntajes. Verifica los datos e intenta de nuevo.
+                </div>
+            </div>
+        );
+    }
+
     const currentScores = activeTab === 'walk' ? results.scores.walking : results.scores.driving;
     const currentInsights = results.insights.filter(i => activeTab === 'walk' ? (i.type === 'walk' || i.type === 'transport') : i.type === 'drive');
 
     return (
         <div className="re-widget">
             <div className="widget-visuals">
-                <MapComponent lat={lat} lng={lng} />
+                <MapComponent lat={currentLat} lng={currentLng} />
             </div>
 
             <div className="widget-sidebar">
@@ -111,6 +161,52 @@ const Widget = ({ lat, lng }) => {
                     <div style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', marginTop: '0.5rem' }}>
                         Puntaje General ({activeTab === 'walk' ? 'Peatonal' : 'Vehicular'})
                     </div>
+                </div>
+
+                {/* Editable Location */}
+                <div style={{ marginBottom: '1.5rem', padding: '1rem', border: '1px solid #e2e8f0', borderRadius: '0.5rem' }}>
+                    <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap', alignItems: 'flex-end' }}>
+                        <div style={{ display: 'flex', flexDirection: 'column', flex: 1, minWidth: '120px' }}>
+                            <label htmlFor="lat-input" style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', marginBottom: '0.25rem' }}>Latitud</label>
+                            <input
+                                id="lat-input"
+                                type="number"
+                                value={inputLat}
+                                onChange={(e) => setInputLat(e.target.value)}
+                                style={{ padding: '0.5rem', border: '1px solid #cbd5e1', borderRadius: '0.25rem' }}
+                            />
+                        </div>
+                        <div style={{ display: 'flex', flexDirection: 'column', flex: 1, minWidth: '120px' }}>
+                            <label htmlFor="lng-input" style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', marginBottom: '0.25rem' }}>Longitud</label>
+                            <input
+                                id="lng-input"
+                                type="number"
+                                value={inputLng}
+                                onChange={(e) => setInputLng(e.target.value)}
+                                style={{ padding: '0.5rem', border: '1px solid #cbd5e1', borderRadius: '0.25rem' }}
+                            />
+                        </div>
+                        <button
+                            onClick={handleUpdateLocation}
+                            disabled={isRecalculating}
+                            style={{
+                                padding: '0.5rem 1rem',
+                                backgroundColor: 'var(--primary-color)',
+                                color: '#fff',
+                                border: 'none',
+                                borderRadius: '0.25rem',
+                                cursor: isRecalculating ? 'not-allowed' : 'pointer',
+                                opacity: isRecalculating ? 0.7 : 1,
+                            }}
+                        >
+                            {isRecalculating ? 'Calculando...' : 'Actualizar'}
+                        </button>
+                    </div>
+                    {validationError && (
+                        <div role="alert" style={{ color: 'var(--danger)', fontSize: '0.85rem', marginTop: '0.5rem' }}>
+                            {validationError}
+                        </div>
+                    )}
                 </div>
 
                 {/* Detailed Scores */}
