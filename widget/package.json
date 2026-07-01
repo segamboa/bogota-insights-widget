@@ -1,7 +1,7 @@
 {
     "name": "widget-inmobiliario",
     "private": true,
-    "version": "0.0.0",
+    "version": "0.1.0",
     "type": "module",
     "scripts": {
         "dev": "vite",
@@ -28,8 +28,6 @@
         "@testing-library/jest-dom": "^6.9.1",
         "@testing-library/react": "^16.3.2",
         "@testing-library/user-event": "^14.6.1",
-        "@types/react": "^18.3.3",
-        "@types/react-dom": "^18.3.0",
         "@vitejs/plugin-react": "^4.3.1",
         "eslint": "^9.39.4",
         "eslint-plugin-react": "^7.37.5",
