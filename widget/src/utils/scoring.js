@@ -3,6 +3,8 @@ import distance from '@turf/distance'
 import centroid from '@turf/centroid'
 import pointToLineDistance from '@turf/point-to-line-distance'
 
+export { distance }
+
 // --- Constants ---
 const WALK_RADIUS_KM = 0.5
 const DRIVE_RADIUS_KM = 3.0

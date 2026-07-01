@@ -162,7 +162,7 @@ const Widget = ({ lat, lng }) => {
     return (
         <div className="re-widget">
             <div className="widget-visuals">
-                <MapComponent lat={currentLat} lng={currentLng} />
+                <MapComponent lat={currentLat} lng={currentLng} data={dataRef.current} activeTab={activeTab} />
             </div>
 
             <div className="widget-sidebar">
