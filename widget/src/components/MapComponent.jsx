@@ -1,9 +1,10 @@
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { MapContainer, TileLayer, Marker, Popup, Circle, useMap } from 'react-leaflet';
 import L from 'leaflet';
 import icon from 'leaflet/dist/images/marker-icon.png';
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';
+import { point } from '@turf/helpers';
 import { getPoint, distance } from '../utils/scoring';
 
 const DefaultIcon = L.icon({
@@ -35,27 +36,38 @@ RecenterMap.propTypes = {
 };
 
 const PoiLayer = ({ data, activeTab, center }) => {
-    const radius = activeTab === 'walk' ? 0.5 : 3.0;
-    if (!data || !data.pois) return null;
+    const features = data?.pois?.features;
 
-    const pois = data.pois.features.filter((f) => {
-        const p = getPoint(f);
-        if (!p) return false;
-        const d = distance(center, p, { units: 'kilometers' });
-        return d <= radius;
-    });
+    const pois = useMemo(() => {
+        if (!features) return [];
+        const radius = activeTab === 'walk' ? 0.5 : 3.0;
+        return features.filter((f) => {
+            const p = getPoint(f);
+            if (!p) return false;
+            const d = distance(center, p, { units: 'kilometers' });
+            return d <= radius;
+        });
+    }, [features, activeTab, center]);
+
+    if (!pois.length) return null;
 
     return (
         <>
-            {pois.map((f, idx) => (
-                <Marker
-                    key={`poi-${idx}-${f.properties?.name || f.properties?.amenity || idx}`}
-                    position={[f.geometry.coordinates[1], f.geometry.coordinates[0]]}
-                    icon={PoiIcon}
-                >
-                    <Popup>{f.properties?.name || f.properties?.amenity || 'POI'}</Popup>
-                </Marker>
-            ))}
+            {pois.map((f, idx) => {
+                const poiPoint = getPoint(f);
+                if (!poiPoint) return null;
+                const position = [poiPoint.geometry.coordinates[1], poiPoint.geometry.coordinates[0]];
+                const key = f.properties?.['@id'] || `poi-${idx}-${poiPoint.geometry.coordinates.join(',')}`;
+                return (
+                    <Marker
+                        key={key}
+                        position={position}
+                        icon={PoiIcon}
+                    >
+                        <Popup>{f.properties?.name || f.properties?.amenity || 'POI'}</Popup>
+                    </Marker>
+                );
+            })}
         </>
     );
 };
@@ -72,7 +84,7 @@ PoiLayer.propTypes = {
 
 const MapComponent = ({ lat, lng, data = null, activeTab = 'walk' }) => {
     const position = [lat, lng];
-    const center = { type: 'Feature', geometry: { type: 'Point', coordinates: [lng, lat] }, properties: {} };
+    const center = useMemo(() => point([lng, lat]), [lat, lng]);
 
     return (
         <MapContainer center={position} zoom={14} scrollWheelZoom={false} className="widget-map">

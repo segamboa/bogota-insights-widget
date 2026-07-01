@@ -24,4 +24,33 @@ describe('MapComponent', () => {
     const { container } = render(<MapComponent lat={4.656} lng={-74.056} data={data} activeTab="walk" />)
     expect(container.querySelector('.leaflet-marker-icon')).toBeInTheDocument()
   })
+
+  it('renders Polygon POI markers at centroid without crashing', () => {
+    const data = {
+      pois: {
+        type: 'FeatureCollection',
+        features: [
+          {
+            type: 'Feature',
+            geometry: {
+              type: 'Polygon',
+              coordinates: [
+                [
+                  [-74.057, 4.655],
+                  [-74.055, 4.655],
+                  [-74.055, 4.657],
+                  [-74.057, 4.657],
+                  [-74.057, 4.655],
+                ],
+              ],
+            },
+            properties: { amenity: 'school', name: 'Polygon School' },
+          },
+        ],
+      },
+    }
+    const { container } = render(<MapComponent lat={4.656} lng={-74.056} data={data} activeTab="walk" />)
+    // The property marker plus one Polygon POI marker should both render.
+    expect(container.querySelectorAll('.leaflet-marker-icon').length).toBe(2)
+  })
 })
